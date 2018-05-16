@@ -24,7 +24,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
-import java.util.logging.Logger;
+
 
 import javax.xml.stream.XMLStreamException;
 
@@ -40,7 +40,7 @@ import static net.sf.freecol.common.util.CollectionUtils.*;
 public abstract class Settlement extends GoodsLocation
     implements Nameable, Ownable {
 
-    private static final Logger logger = Logger.getLogger(Settlement.class.getName());
+ 
 
     public static final int FOOD_PER_COLONIST = 200;
 
@@ -252,8 +252,8 @@ public abstract class Settlement extends GoodsLocation
      */
     public void exciseSettlement() {
         Tile settlementTile = getTile();
-        for (Tile tile : getOwnedTiles()) {
-            tile.changeOwnership(null, null);//-til
+        for (Tile til : getOwnedTiles()) {
+            til.changeOwnership(null, null);//-til
         }
         settlementTile.setSettlement(null);//-vis(owner),-til
         settlementTile.changeOwnership(null, null);//-til

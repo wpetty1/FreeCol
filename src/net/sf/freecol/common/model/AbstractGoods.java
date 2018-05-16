@@ -141,11 +141,14 @@ public class AbstractGoods extends FreeColObject implements Named {
      * @param sellable Whether these goods can be sold.
      * @return A label for these goods.
      */
+    //defint %amount% as a constant string
+    public static final String AMT = "%amount%";
+    public static final String GOOD = "%goods%";
     public StringTemplate getLabel(boolean sellable) {
         return (sellable) ? getLabel()
             : StringTemplate.template("model.abstractGoods.boycotted")
-                .addNamed("%goods%", getType())
-                .addAmount("%amount%", getAmount());
+                .addNamed(GOOD, getType())
+                .addAmount(AMT, getAmount());
     }
 
     /**
@@ -157,8 +160,8 @@ public class AbstractGoods extends FreeColObject implements Named {
      */
     public static StringTemplate getLabel(GoodsType type, int amount) {
         return StringTemplate.template("model.abstractGoods.label")
-            .addNamed("%goods%", type)
-            .addAmount("%amount%", amount);
+            .addNamed(GOOD, type)
+            .addAmount(AMT, amount);
     }
 
     /**
@@ -170,8 +173,8 @@ public class AbstractGoods extends FreeColObject implements Named {
      */
     public static StringTemplate getLabel(String key, int amount) {
         return StringTemplate.template("model.abstractGoods.label")
-            .add("%goods%", key)
-            .addAmount("%amount%", amount);
+            .add(GOOD, key)
+            .addAmount(AMT, amount);
     }
 
     /**
@@ -343,7 +346,9 @@ public class AbstractGoods extends FreeColObject implements Named {
      *
      * @return "abstractGoods".
      */
+    //declare abstract goods as a constant
+    public static final String ABSTRACT = "abstractGoods";
     public static String getXMLElementTagName() {
-        return "abstractGoods";
+        return ABSTRACT;
     }
 }

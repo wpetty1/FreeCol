@@ -63,7 +63,7 @@ public class LostCityRumour extends TileItem {
     private String name = null;
 
     /** Constants describing types of Lost City Rumours. */
-    public static enum RumourType {
+    public enum RumourType {
         NO_SUCH_RUMOUR,
         BURIAL_GROUND,
         EXPEDITION_VANISHES,
@@ -438,7 +438,8 @@ public class LostCityRumour extends TileItem {
      *
      * @return "lostCityRumour".
      */
+    public static final String LCR = "lostCityRumour";
     public static String getXMLElementTagName() {
-        return "lostCityRumour";
+        return LCR;
     }
 }

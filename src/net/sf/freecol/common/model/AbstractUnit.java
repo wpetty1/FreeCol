@@ -272,7 +272,8 @@ public class AbstractUnit extends FreeColObject {
      *
      * @return "abstractUnit".
      */
+    public static final String ABSUNIT = "abstractUnit";
     public static String getXMLElementTagName() {
-        return "abstractUnit";
+        return ABSUNIT;
     }
 }

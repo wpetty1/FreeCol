@@ -189,7 +189,7 @@ public class EuropeanNationType extends NationType {
 
         xw.writeAttribute(ROLE_TAG, au.getRoleId());
 
-        //xw.writeAttribute("number", unit.getNumber());
+      
 
         if (expert) xw.writeAttribute(EXPERT_STARTING_UNITS_TAG, expert);
 
@@ -274,7 +274,8 @@ public class EuropeanNationType extends NationType {
      *
      * @return "european-nation-type".
      */
+    public static final String EURNATION = "european-nation-type";
     public static String getXMLElementTagName() {
-        return "european-nation-type";
+        return EURNATION;
     }
 }

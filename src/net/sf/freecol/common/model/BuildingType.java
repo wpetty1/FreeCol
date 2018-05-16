@@ -214,7 +214,7 @@ public final class BuildingType extends BuildableType {
      * Gets the production types available at the current difficulty
      * level.
      *
-     * FIXME: TileType.getAvailableProductionTypes(boolean) uses the
+     * TileType.getAvailableProductionTypes(boolean) uses the
      * GameOptions.TILE_PRODUCTION option.  Should we implement a
      * corresponding one for BuildingTypes?
      *
@@ -508,7 +508,8 @@ public final class BuildingType extends BuildableType {
      *
      * @return "building-type".
      */
+    public static final String BUILDTYPE = "building-type";
     public static String getXMLElementTagName() {
-        return "building-type";
+        return BUILDTYPE;
     }
 }

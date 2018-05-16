@@ -47,12 +47,12 @@ public class IndianSettlement extends Settlement implements TradeLocation {
     private static final Logger logger = Logger.getLogger(IndianSettlement.class.getName());
 
     /** The level of contact between a player and this settlement. */
-    public static enum ContactLevel {
+    public  enum ContactLevel {
         UNCONTACTED,     // Nothing known other than location?
         CONTACTED,       // Name, wanted-goods now visible
         VISITED,         // Skill now known
         SCOUTED          // Scouting bonus consumed
-    };
+    }
 
     // When choosing what goods to sell, sort goods with new world
     // goods first, then by price, then amount.
@@ -97,7 +97,7 @@ public class IndianSettlement extends Settlement implements TradeLocation {
     public static final int GOODS_BASE_PRICE = 12;
 
     /** The amount of goods a brave can produce a single turn. */
-    //private static final int WORK_AMOUNT = 5;
+
 
     /**
      * The amount of raw material that should be available before
@@ -989,7 +989,8 @@ public class IndianSettlement extends Settlement implements TradeLocation {
      */
     private GoodsType goodsToMake() {
         GoodsType wantGoods = null;
-        int diff, wantAmount = -1;
+        int diff;
+        int wantAmount = -1;
         for (GoodsType g : getSpecification().getGoodsTypeList()) {
             GoodsType produced;
             if (g.isRawMaterial()
@@ -1451,13 +1452,13 @@ public class IndianSettlement extends Settlement implements TradeLocation {
                 xw.writeEndElement();
             }
 
-            Tension alarm = getAlarm(client);
-            if (alarm != null) {
+            Tension alar = getAlarm(client);
+            if (alar != null) {
                 xw.writeStartElement(ALARM_TAG);
 
                 xw.writeAttribute(PLAYER_TAG, client);
 
-                xw.writeAttribute(VALUE_TAG, alarm.getValue());
+                xw.writeAttribute(VALUE_TAG, alar.getValue());
 
                 xw.writeEndElement();
             }
@@ -1597,7 +1598,8 @@ public class IndianSettlement extends Settlement implements TradeLocation {
      *
      * @return "indianSettlement".
      */
+    public static final String ISETTLE = "indianSettlement";
     public static String getXMLElementTagName() {
-        return "indianSettlement";
+        return ISETTLE;
     }
 }

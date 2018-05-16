@@ -192,6 +192,5 @@ public abstract class TileItem extends FreeColGameObject
     /**
      * {@inheritDoc}
      */
-    @Override
-    public abstract String getNameKey();
+    
 }

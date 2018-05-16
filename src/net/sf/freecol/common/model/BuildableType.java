@@ -20,13 +20,13 @@
 package net.sf.freecol.common.model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+//unused import 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.stream.Collectors;
+//unused import 
+//unused import 
 
 import javax.xml.stream.XMLStreamException;
 
@@ -39,6 +39,7 @@ import static net.sf.freecol.common.util.CollectionUtils.*;
 /**
  * Contains information on buildable types.
  */
+
 public abstract class BuildableType extends FreeColGameObjectType {
 
     /** The required population for an ordinary buildable. */

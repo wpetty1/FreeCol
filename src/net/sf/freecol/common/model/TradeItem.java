@@ -179,7 +179,8 @@ public abstract class TradeItem extends FreeColObject {
      *
      * @return The gold to trade.
      */
-    public int getGold() { return 0; }
+    public static final int Z = 0;
+    public int getGold() { return Z; }
 
     /**
      * Set the gold to trade.

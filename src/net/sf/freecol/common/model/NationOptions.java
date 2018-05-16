@@ -36,12 +36,13 @@ import static net.sf.freecol.common.util.StringUtils.*;
 /**
  * The options specific to a nation.
  */
-public class NationOptions extends FreeColObject {
 
+public class NationOptions extends FreeColObject {
+	public static final String MDL = "model.";
     private static final Logger logger = Logger.getLogger(NationOptions.class.getName());
 
     /** Type of national advantages for European players. */
-    public static enum Advantages implements Named {
+    public  enum Advantages implements Named {
         NONE,
         FIXED,
         SELECTABLE;
@@ -54,9 +55,9 @@ public class NationOptions extends FreeColObject {
         private String getKey() {
             return "advantages." + getEnumKey(this);
         }
-
+        
         public final String getShortDescriptionKey() {
-            return Messages.shortDescriptionKey("model." + getKey());
+            return Messages.shortDescriptionKey(MDL + getKey());
         }
 
         // Implement Named
@@ -66,15 +67,15 @@ public class NationOptions extends FreeColObject {
          */
         @Override
         public final String getNameKey() {
-            return Messages.nameKey("model." + getKey());
+            return Messages.nameKey(MDL + getKey());
         }
-    };
+    }
 
     /**
      * Nations may be available to all players, to AI players only, or
      * to no players.
      */
-    public static enum NationState implements Named {
+    public  enum NationState implements Named {
         AVAILABLE,
         AI_ONLY,
         NOT_AVAILABLE;
@@ -89,7 +90,7 @@ public class NationOptions extends FreeColObject {
         }
 
         public final String getShortDescriptionKey() {
-            return Messages.shortDescriptionKey("model." + getKey());
+            return Messages.shortDescriptionKey(MDL + getKey());
         }
 
         // Implement Named
@@ -99,7 +100,7 @@ public class NationOptions extends FreeColObject {
          */
         @Override
         public final String getNameKey() {
-            return Messages.nameKey("model." + getKey());
+            return Messages.nameKey(MDL + getKey());
         }
     }
 
@@ -122,7 +123,8 @@ public class NationOptions extends FreeColObject {
         this.specification = specification;
         this.nationalAdvantages = FreeCol.getAdvantages();
         if (specification != null) {
-            int counter = 0, maxEuropeans = FreeCol.getEuropeanCount();
+            int counter = 0;
+            int maxEuropeans = FreeCol.getEuropeanCount();
             for (Nation nation : specification.getNations()) {
                 if (nation.isUnknownEnemy() || nation.getType().isREF()) {
                     continue;
@@ -346,7 +348,8 @@ public class NationOptions extends FreeColObject {
      *
      * @return "nationOptions".
      */
+    public static final String NO = "nationOptions";
     public static String getXMLElementTagName() {
-        return "nationOptions";
+        return NO;
     }
 }

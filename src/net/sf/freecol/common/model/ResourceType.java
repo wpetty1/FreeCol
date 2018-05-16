@@ -31,7 +31,8 @@ import net.sf.freecol.common.io.FreeColXMLWriter;
 public final class ResourceType extends FreeColGameObjectType {
 
     /** Maximum and minimum values for this resource type. */
-    private int maxValue, minValue;
+    private int maxValue;
+    private int minValue;
 
 
     /**
@@ -126,7 +127,8 @@ public final class ResourceType extends FreeColGameObjectType {
      *
      * @return "resource-type".
      */
+    public static final String RT = "resource-type";
     public static String getXMLElementTagName() {
-        return "resource-type";
+        return RT;
     }
 }

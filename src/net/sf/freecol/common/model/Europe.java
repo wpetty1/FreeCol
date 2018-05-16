@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
-import java.util.logging.Logger;
+
 
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
@@ -43,7 +43,7 @@ import net.sf.freecol.common.model.Unit.UnitState;
 public class Europe extends UnitLocation
     implements Ownable, Named, TradeLocation {
 
-    private static final Logger logger = Logger.getLogger(Europe.class.getName());
+    
 
     /** The initial recruit price. */
     private static final int RECRUIT_PRICE_INITIAL = 200;
@@ -67,7 +67,7 @@ public class Europe extends UnitLocation
      * The following constant should be used when the random choice
      * behaviour is desired.
      */
-    public static enum MigrationType {
+    public  enum MigrationType {
         NORMAL,     // Unit decided to migrate
         RECRUIT,    // Player is paying
         FOUNTAIN,   // As a result of a Fountain of Youth discovery
@@ -446,10 +446,10 @@ public class Europe extends UnitLocation
      */
     @Override
     public void disposeResources() {
-        Player owner = getOwner();
-        if (owner != null) {
-            owner.setEurope(null);
-            HighSeas highSeas = owner.getHighSeas();
+        Player owns = getOwner();
+        if (owns != null) {
+            owns.setEurope(null);
+            HighSeas highSeas = owns.getHighSeas();
             if (highSeas != null) highSeas.removeDestination(this);
         }
         super.disposeResources();
@@ -659,7 +659,8 @@ public class Europe extends UnitLocation
      *
      * @return "europe".
      */
+    public static final String EUR = "europe";
     public static String getXMLElementTagName() {
-        return "europe";
+        return EUR;
     }
 }

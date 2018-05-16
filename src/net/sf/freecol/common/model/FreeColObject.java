@@ -139,8 +139,8 @@ public abstract class FreeColObject
      * @return The usual identifier suffix.
      */
     public final String getSuffix() {
-        String id = getId();
-        return (id == null) ? null : lastPart(id, ".");
+        String identi = getId();
+        return (identi == null) ? null : lastPart(identi, ".");
     }
 
     /**

@@ -37,7 +37,7 @@ import net.sf.freecol.common.model.Operand.OperandType;
 public final class Limit extends FreeColGameObjectType {
 
     /** The basic operation used in evaluating this limit. */
-    public static enum Operator {
+    public  enum Operator {
         EQ, LT, GT, LE, GE
     }
 
@@ -220,7 +220,7 @@ public final class Limit extends FreeColGameObjectType {
      * @return The result of the evaluation.
      */
     public boolean evaluate(Settlement settlement) {
-        final Specification spec = getSpecification();
+        
         Integer lhs = null;
         switch (leftHandSide.getScopeLevel()) {
         case SETTLEMENT:
@@ -380,7 +380,8 @@ public final class Limit extends FreeColGameObjectType {
      *
      * @return "limit".
      */
+    public static final String LMT = "limit";
     public static String getXMLElementTagName() {
-        return "limit";
+        return LMT;
     }
 }

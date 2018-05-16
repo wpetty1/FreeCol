@@ -122,34 +122,14 @@ public class IndianNationType extends NationType {
      * @param tile a <code>Tile</code> value
      * @return a <code>boolean</code> value
      */
-    /*
-    public boolean canSettleTile(Tile tile) {
-        if (tile.getType().canSettle()) {
-            return canSettleRegion(tile.getRegion());
-        } else {
-            return false;
-        }
-    }
-    */
+    
     /**
      * Can this Nation can settle the given Region?
      *
      * @param region a <code>Region</code> value
      * @return a <code>boolean</code> value
      */
-    /*
-    public boolean canSettleRegion(Region region) {
-        if (regions.isEmpty()) {
-            return true;
-        } else if (regions.contains(region.getId())) {
-            return true;
-        } else if (region.getParent() == null) {
-            return false;
-        } else {
-            return canSettleRegion(region.getParent());
-        }
-    }
-    */
+   
 
     /**
      * Gets a list of this Nation's skills.
@@ -181,10 +161,10 @@ public class IndianNationType extends NationType {
      * @return A random choice set of skills.
      */
     public List<RandomChoice<UnitType>> generateSkillsForTile(Tile tile) {
-        List<RandomChoice<UnitType>> skills = getSkills();
+        List<RandomChoice<UnitType>> skillz = getSkills();
         Map<GoodsType, Integer> scale = new HashMap<>();
 
-        for (RandomChoice<UnitType> skill : skills) {
+        for (RandomChoice<UnitType> skill : skillz) {
             scale.put(skill.getObject().getExpertProduction(), 1);
         }
 
@@ -197,7 +177,7 @@ public class IndianNationType extends NationType {
         }
 
         List<RandomChoice<UnitType>> scaledSkills = new ArrayList<>();
-        for (RandomChoice<UnitType> skill : skills) {
+        for (RandomChoice<UnitType> skill : skillz) {
             UnitType unitType = skill.getObject();
             int scaleValue = scale.get(unitType.getExpertProduction());
             scaledSkills.add(new RandomChoice<>(unitType,
@@ -303,7 +283,8 @@ public class IndianNationType extends NationType {
      *
      * @return "indian-nation-type".
      */
+    public static final String INATIONTY = "indian-nation-type";
     public static String getXMLElementTagName() {
-        return "indian-nation-type";
+        return INATIONTY;
     }
 }

@@ -275,11 +275,16 @@ public abstract class Feature extends FreeColObject implements Named {
      * @return True if the feature is independent.
      */
     public boolean isIndependent() {
-        if (source instanceof BuildingType
-            || source instanceof FoundingFather
-            || source instanceof NationType
-            || source instanceof SettlementType) return false;
-        return true;
+    	boolean result;
+        if (source instanceof BuildingType || source instanceof FoundingFather || source instanceof NationType || source instanceof SettlementType) 
+        {
+        	result = false;
+        	}
+        else
+        {
+        result = true;
+        }
+        return result;
     }
 
 
@@ -425,11 +430,11 @@ public abstract class Feature extends FreeColObject implements Named {
             setSource(spec.findType(str));
         }
 
-        int firstTurn = xr.getAttribute(FIRST_TURN_TAG, UNDEFINED);
-        if (firstTurn != UNDEFINED) setFirstTurn(new Turn(firstTurn));
+        int fTurn = xr.getAttribute(FIRST_TURN_TAG, UNDEFINED);
+        if (fTurn != UNDEFINED) setFirstTurn(new Turn(fTurn));
 
-        int lastTurn = xr.getAttribute(LAST_TURN_TAG, UNDEFINED);
-        if (lastTurn != UNDEFINED) setLastTurn(new Turn(lastTurn));
+        int lTurn = xr.getAttribute(LAST_TURN_TAG, UNDEFINED);
+        if (lTurn != UNDEFINED) setLastTurn(new Turn(lTurn));
 
         duration = xr.getAttribute(DURATION_TAG, 0);
 

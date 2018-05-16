@@ -402,7 +402,8 @@ public class Scope extends FreeColObject {
      *
      * @return "scope".
      */
+    public static final String S = "scope";
     public static String getXMLElementTagName() {
-        return "scope";
+        return S;
     }
 }

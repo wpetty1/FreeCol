@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Logger;
+
 
 import javax.xml.stream.XMLStreamException;
 
@@ -43,8 +43,7 @@ import org.w3c.dom.Element;
  */
 public abstract class GoodsLocation extends UnitLocation {
 
-    private static final Logger logger = Logger.getLogger(GoodsLocation.class.getName());
-
+    
     /** The container for the goods. */
     private GoodsContainer goodsContainer = null;
 

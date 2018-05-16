@@ -402,7 +402,7 @@ public class ProductionType extends FreeColObject {
     @Override
     protected void writeAttributes(FreeColXMLWriter xw) throws XMLStreamException {
         // ProductionType does not need an id.
-        // No need for: super.writeAttributes(out);
+
 
         if (unattended) {
             xw.writeAttribute(UNATTENDED_TAG, unattended);
@@ -451,8 +451,8 @@ public class ProductionType extends FreeColObject {
     @Override
     public void readAttributes(FreeColXMLReader xr) throws XMLStreamException {
         // ProductionType does not need an id.
-        // No need for: super.readAttributes(in);
-        // FIXME: as soon as we allow the user to select a production type,
+
+        // as soon as we allow the user to select a production type,
         // we will need an id
 
         unattended = xr.getAttribute(UNATTENDED_TAG, false);
@@ -546,7 +546,8 @@ public class ProductionType extends FreeColObject {
      *
      * @return "production".
      */
+    public static final String P = "production";
     public static String getXMLElementTagName() {
-        return "production";
+        return P;
     }
 }

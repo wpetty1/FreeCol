@@ -68,12 +68,12 @@ public class Player extends FreeColGameObject implements Nameable {
     //
 
     /** Types of players. */
-    public static enum PlayerType {
+    public  enum PlayerType {
         NATIVE, COLONIAL, REBEL, INDEPENDENT, ROYAL, UNDEAD, RETIRED
     }
 
     /** Colony value categories. */
-    public static enum ColonyValueCategory {
+    public  enum ColonyValueCategory {
         A_OVERRIDE, // override slot containing showstopper NoValueType values
         A_PROD,     // general production level
         A_TILE,     // strangeness with the tile
@@ -94,7 +94,7 @@ public class Player extends FreeColGameObject implements Nameable {
     }
 
     /** Special return values for showstopper getColonyValue fail. */
-    public static enum NoValueType {
+    public  enum NoValueType {
         BOGUS(-1), TERRAIN(-2), RUMOUR(-3), SETTLED(-4), FOOD(-5), INLAND(-6), POLAR(-7);
      
         private static final int MAX = values().length;
@@ -676,7 +676,7 @@ public class Player extends FreeColGameObject implements Nameable {
             ? StringTemplate.name(independentNationName)
             : StringTemplate.key(Messages.nameKey(nationId));
     }
-
+    public static final String N = "%nation%";
     /**
      * Get a template for this players country.
      *
@@ -687,7 +687,7 @@ public class Player extends FreeColGameObject implements Nameable {
                 || playerType == PlayerType.INDEPENDENT)
             ? StringTemplate.name(independentNationName)
             : StringTemplate.template("countryName")
-                .addStringTemplate("%nation%", getNationLabel());
+                .addStringTemplate(N, getNationLabel());
     }
 
     /**
@@ -697,7 +697,7 @@ public class Player extends FreeColGameObject implements Nameable {
      */
     public StringTemplate getForcesLabel() {
         return StringTemplate.template("model.player.forces")
-            .addStringTemplate("%nation%", getNationLabel());
+            .addStringTemplate(N, getNationLabel());
     }
 
     /**
@@ -707,7 +707,7 @@ public class Player extends FreeColGameObject implements Nameable {
      */
     public StringTemplate getWaitingLabel() {
         return StringTemplate.template("model.player.waitingFor")
-            .addStringTemplate("%nation%", getNationLabel());
+            .addStringTemplate(N, getNationLabel());
     }
 
     /**
@@ -1361,7 +1361,7 @@ public class Player extends FreeColGameObject implements Nameable {
         int unreduced = Math.round(current
             / applyModifiers(1f, turn, Modifier.RELIGIOUS_UNREST_BONUS));
         immigrationRequired = (int)applyModifiers(unreduced + base, turn,
-            Modifier.RELIGIOUS_UNREST_BONUS);;
+            Modifier.RELIGIOUS_UNREST_BONUS);
         logger.finest("Immigration for " + getId() + " updated " + current
             + " -> " + immigrationRequired);
     }
@@ -1390,8 +1390,8 @@ public class Player extends FreeColGameObject implements Nameable {
             .mapToInt(c -> immigrationGoodsTypes.stream()
                 .mapToInt(gt -> c.getTotalProductionOf(gt)).sum())
             .sum();
-        final Europe europe = getEurope();
-        if (europe != null) production += europe.getImmigration(production);
+        final Europe eur = getEurope();
+        if (eur != null) production += eur.getImmigration(production);
         return production;
     }
 
@@ -2615,9 +2615,9 @@ public class Player extends FreeColGameObject implements Nameable {
      * @return A suitable <code>Tile</code>.
      */
     public Tile getFallbackTile() {
-        List<Settlement> settlements = getSettlements();
-        return (!settlements.isEmpty())
-            ? settlements.get(0).getTile()
+        List<Settlement> settle = getSettlements();
+        return (!settle.isEmpty())
+            ? settle.get(0).getTile()
             : getEntryLocation().getTile();
     }
 
@@ -2932,7 +2932,7 @@ public class Player extends FreeColGameObject implements Nameable {
         Stance oldStance = stance.get(player.getId());
         if (newStance == oldStance) return true;
 
-        boolean valid = true;;
+        boolean valid = true;
         if ((newStance == Stance.CEASE_FIRE && oldStance != Stance.WAR)
             || newStance == Stance.UNCONTACTED) {
             valid = false;
@@ -3103,7 +3103,7 @@ public class Player extends FreeColGameObject implements Nameable {
      * to found a settlement or just to be used by one, including the
      * double negative NONE == "no reason" case.
      */
-    public static enum NoClaimReason implements Named {
+    public  enum NoClaimReason implements Named {
         NONE,            // Actually, tile can be claimed
         TERRAIN,         // Not on settleable terrain
         RUMOUR,          // Europeans can not claim tiles with LCR
@@ -3135,7 +3135,7 @@ public class Player extends FreeColGameObject implements Nameable {
         public String getNameKey() {
             return Messages.nameKey("model." + getKey());
         }        
-    };
+    }
 
     /**
      * Can a tile be owned by this player?
@@ -3269,10 +3269,10 @@ public class Player extends FreeColGameObject implements Nameable {
      * @return True if the player has no settlements (on the map) yet.
      */
     private boolean hasZeroSettlements() {
-        List<Settlement> settlements = getSettlements();
-        return settlements.isEmpty()
-            || (settlements.size() == 1
-                && settlements.get(0).getTile().getSettlement() == null);
+        List<Settlement> settle = getSettlements();
+        return settle.isEmpty()
+            || (settle.size() == 1
+                && settle.get(0).getTile().getSettlement() == null);
     }
 
     /**
@@ -3439,7 +3439,7 @@ public class Player extends FreeColGameObject implements Nameable {
         // Applied once
         final double MOD_HAS_RESOURCE           = 0.75;
         final double MOD_FOOD_LOW               = 0.75;
-        final double MOD_INITIAL_FOOD           = 2.0;
+     
         final double MOD_STEAL                  = 0.5;
         final double MOD_INLAND                 = 0.5;
 
@@ -3864,7 +3864,7 @@ public class Player extends FreeColGameObject implements Nameable {
     private static final String NATION_ID_TAG = "nationId";
     private static final String NATION_TYPE_TAG = "nationType";
     private static final String NEW_LAND_NAME_TAG = "newLandName";
-    private static final String NUMBER_OF_SETTLEMENTS_TAG = "numberOfSettlements";
+  
     private static final String OFFERED_FATHERS_TAG = "offeredFathers";
     private static final String OLD_SOL_TAG = "oldSoL";
     private static final String PLAYER_TAG = "player";
@@ -4265,7 +4265,8 @@ public class Player extends FreeColGameObject implements Nameable {
      *
      * @return "player"
      */
+    
     public static String getXMLElementTagName() {
-        return "player";
+        return PLAYER_TAG;
     }
 }

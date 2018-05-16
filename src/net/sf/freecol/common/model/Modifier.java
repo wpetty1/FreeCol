@@ -148,7 +148,7 @@ public class Modifier extends Feature {
     public static final int ROLE_COMBAT_INDEX = 30;
     public static final int GENERAL_COMBAT_INDEX = 50;
 
-    public static enum ModifierType {
+    public  enum ModifierType {
         ADDITIVE,
         MULTIPLICATIVE,
         PERCENTAGE
@@ -299,7 +299,7 @@ public class Modifier extends Feature {
         float inc = template.getIncrement();
         int duration = template.getDuration();
         modifier.setTemporary(template.isTemporary());
-        // FIXME: this only works for additive modifiers
+
         if (duration == 0) {
             duration = (int)(template.getValue()/-inc);
         }
@@ -681,7 +681,8 @@ public class Modifier extends Feature {
      *
      * @return "modifier".
      */
+    public static final String MODI = "modifier";
     public static String getXMLElementTagName() {
-        return "modifier";
+        return MODI;
     }
 }

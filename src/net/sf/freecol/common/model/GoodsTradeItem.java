@@ -113,18 +113,18 @@ public class GoodsTradeItem extends TradeItem {
      */
     public int evaluateFor(Player player) {
         final Market market = player.getMarket();
-        final Goods goods = getGoods();
+        final Goods good = getGoods();
         int value;
         if (!isValid()) {
             return Integer.MIN_VALUE;
         } else if (market == null) {
-            value = 2 * goods.getAmount();
+            value = 2 * good.getAmount();
             if (getSource() == player) value = -value;
         } else {
             if (getSource() == player) {
-                value = -market.getBidPrice(goods.getType(), goods.getAmount());
+                value = -market.getBidPrice(good.getType(), good.getAmount());
             } else {
-                value = market.getSalePrice(goods.getType(), goods.getAmount());
+                value = market.getSalePrice(good.getType(), good.getAmount());
                 value = (int)Math.round(value
                     * (1.0 - player.getTax() / 100.0));
             }
@@ -218,7 +218,8 @@ public class GoodsTradeItem extends TradeItem {
      *
      * @return "goodsTradeItem".
      */
+    public static final String GOODTRADEIT = "goodsTradeItem";
     public static String getXMLElementTagName() {
-        return "goodsTradeItem";
+        return GOODTRADEIT;
     }
 }

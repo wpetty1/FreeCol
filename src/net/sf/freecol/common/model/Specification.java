@@ -25,7 +25,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -110,7 +109,7 @@ public final class Specification {
          */
         @Override
         public String toString() {
-            return getId();
+            return super.getId();
         }
 
         /**
@@ -118,7 +117,7 @@ public final class Specification {
          */
         @Override
         public String getXMLTagName() { return "source"; }
-    };
+    }
 
     public static final Source AMBUSH_BONUS_SOURCE
         = new Source("model.source.ambushBonus");
@@ -603,7 +602,8 @@ public final class Specification {
         unitTypesTrainedInEurope.clear();
         unitTypesPurchasedInEurope.clear();
         defaultUnitTypes.clear();
-        int bestLandValue = -1, bestNavalValue = -1;
+        int bestLandValue = -1;
+        int bestNavalValue = -1;
         for (UnitType unitType : unitTypeList) {
             if (unitType.isDefaultUnitType()) defaultUnitTypes.add(unitType);
             if (unitType.needsGoodsToBuild()
@@ -732,7 +732,7 @@ public final class Specification {
         allOptionGroups.put(prices.getId(), prices);
         for (GoodsType goodsType : goodsTypeList) {
             String name = goodsType.getSuffix("model.goods.");
-            String base = "model.option." + name + ".";
+            String base = OPTION + name + ".";
             if (goodsType.getInitialSellPrice() > 0) {
                 int diff = (goodsType.isNewWorldGoodsType()
                     || goodsType.isNewWorldLuxuryType()) ? 3 : 0;
@@ -803,17 +803,17 @@ public final class Specification {
         public void readChildren(FreeColXMLReader xr) throws XMLStreamException {
             while (xr.nextTag() != XMLStreamConstants.END_ELEMENT) {
                 final String tag = xr.getLocalName();
-                String id = xr.readId();
-                if (id == null) {
+                String iden = xr.readId();
+                if (iden == null) {
                     logger.warning("Null identifier, tag: " + tag);
 
                 } else if (FreeColGameObjectType.DELETE_TAG.equals(tag)) {
-                    FreeColGameObjectType object = allTypes.remove(id);
+                    FreeColGameObjectType object = allTypes.remove(iden);
                     if (object != null) result.remove(object);
 
                 } else {
-                    T object = getType(id, type);
-                    allTypes.put(id, object);
+                    T object = getType(iden, type);
+                    allTypes.put(iden, object);
 
                     // If this an existing object (with id) and the
                     // PRESERVE tag is present, then leave the
@@ -861,11 +861,11 @@ public final class Specification {
             boolean recursive = xr.getAttribute(RECURSIVE_TAG, true);
 
             if (OptionGroup.getXMLElementTagName().equals(tag)) {
-                String id = xr.readId();
-                OptionGroup group = allOptionGroups.get(id);
+                String iden = xr.readId();
+                OptionGroup group = allOptionGroups.get(iden);
                 if (group == null) {
-                    group = new OptionGroup(id, Specification.this);
-                    allOptionGroups.put(id, group);
+                    group = new OptionGroup(iden, Specification.this);
+                    allOptionGroups.put(iden, group);
                 }
                 group.readFromXML(xr);
                 Specification.this.addOptionGroup(group, recursive);
@@ -905,9 +905,9 @@ public final class Specification {
      * @param ability an <code>Ability</code> value
      */
     public void addAbility(Ability ability) {
-        String id = ability.getId();
-        addAbility(id);
-        allAbilities.get(id).add(ability);
+        String iden = ability.getId();
+        addAbility(iden);
+        allAbilities.get(iden).add(ability);
     }
 
     /**
@@ -938,11 +938,11 @@ public final class Specification {
      * @param modifier The <code>Modifier</code> to add.
      */
     public void addModifier(Modifier modifier) {
-        String id = modifier.getId();
-        if (!allModifiers.containsKey(id)) {
-            allModifiers.put(id, new ArrayList<Modifier>());
+        String iden = modifier.getId();
+        if (!allModifiers.containsKey(iden)) {
+            allModifiers.put(iden, new ArrayList<Modifier>());
         }
-        allModifiers.get(id).add(modifier);
+        allModifiers.get(iden).add(modifier);
     }
 
     /**
@@ -1209,8 +1209,8 @@ public final class Specification {
      */
     public int getInitialPrice(GoodsType goodsType) {
         String suffix = goodsType.getSuffix("model.goods.");
-        String minPrice = "model.option." + suffix + ".minimumPrice";
-        String maxPrice = "model.option." + suffix + ".maximumPrice";
+        String minPrice = OPTION + suffix + ".minimumPrice";
+        String maxPrice = OPTION + suffix + ".maximumPrice";
         return (hasOption(minPrice) && hasOption(maxPrice))
             ? Math.min(getInteger(minPrice), getInteger(maxPrice))
             : goodsType.getInitialSellPrice();
@@ -1561,7 +1561,7 @@ public final class Specification {
      * @return The first <code>Role</code> found with the required
      *     ability, or null if none found.
      */
-    public Role getRoleWithAbility(String id, List<Role> roles) {
+    public Role getRoleWithAbility(String id) {
         return find(getRoles(), r -> r.hasAbility(id));
     }
 
@@ -1951,11 +1951,11 @@ public final class Specification {
         // Require the scopes added to founding fathers in git.8971674
         fatherGoodsFixMap.clear();
         fatherGoodsFixMap.put("model.foundingFather.thomasJefferson",
-                              "model.goods.bells");
+                              BELLS);
         fatherGoodsFixMap.put("model.foundingFather.thomasPaine",
-                              "model.goods.bells");
+                              BELLS);
         fatherGoodsFixMap.put("model.foundingFather.williamPenn",
-                              "model.goods.crosses");
+                              CROSSES);
         for (Entry<String, String> e : fatherGoodsFixMap.entrySet()) {
             FoundingFather father = getFoundingFather(e.getKey());
             for (Modifier m : father.getModifiers(e.getValue())) {
@@ -1984,10 +1984,10 @@ public final class Specification {
                      : ((UnitListOption)refSize).getOptionValues()) {
                 if ("DEFAULT".equals(au.getRoleId())) {
                     au.setRoleId(DEFAULT_ROLE_ID);
-                } else if ("model.role.soldier".equals(au.getRoleId())
+                } else if (SOLDIER.equals(au.getRoleId())
                     || "SOLDIER".equals(au.getRoleId())) {
                     au.setRoleId("model.role.infantry");
-                } else if ("model.role.dragoon".equals(au.getRoleId())
+                } else if (DRAGOON.equals(au.getRoleId())
                     || "DRAGOON".equals(au.getRoleId())) {
                     au.setRoleId("model.role.cavalry");
                 }
@@ -2007,11 +2007,11 @@ public final class Specification {
                     if (roleId == null) {
                         au.setRoleId(DEFAULT_ROLE_ID);
                     } else if (au.getRoleId().startsWith("model.role.")) {
-                        ; // OK
+                        // OK
                     } else if ("DEFAULT".equals(au.getRoleId())) {
                         au.setRoleId(DEFAULT_ROLE_ID);
                     } else if ("DRAGOON".equals(au.getRoleId())) {
-                        au.setRoleId("model.role.dragoon");
+                        au.setRoleId(DRAGOON);
                     } else if ("MISSIONARY".equals(au.getRoleId())) {
                         au.setRoleId("model.role.missionary");
                     } else if ("PIONEER".equals(au.getRoleId())) {
@@ -2021,7 +2021,7 @@ public final class Specification {
                     } else if ("SCOUT".equals(au.getRoleId())) {
                         au.setRoleId("model.role.scout");
                     } else if ("SOLDIER".equals(au.getRoleId())) {
-                        au.setRoleId("model.role.soldier");
+                        au.setRoleId(SOLDIER);
                     } else {
                         au.setRoleId(DEFAULT_ROLE_ID);
                     }
@@ -2097,27 +2097,27 @@ public final class Specification {
         // TownHall, Chapel et al now have unattended production types
         // (replacing modifiers).
         BuildingType townHallType = getBuildingType("model.building.townHall");
-        if (townHallType.hasModifier("model.goods.bells")) {
-            GoodsType bellsType = getGoodsType("model.goods.bells");
+        if (townHallType.hasModifier(BELLS)) {
+            GoodsType bellsType = getGoodsType(BELLS);
             AbstractGoods ag = new AbstractGoods(bellsType, 1);
             ProductionType pt = new ProductionType(ag, true, null);
             townHallType.addProductionType(pt);
-            townHallType.removeModifiers("model.goods.bells");
+            townHallType.removeModifiers(BELLS);
             logger.info("Added backward compatibility production " + pt
                 + " to " + townHallType);
         }
-        GoodsType crossesType = getGoodsType("model.goods.crosses");
+        GoodsType crossesType = getGoodsType(CROSSES);
         int a = 1;
         for (BuildingType bt : new BuildingType[] {
                 getBuildingType("model.building.chapel"),
                 getBuildingType("model.building.church"),
                 getBuildingType("model.building.cathedral") }) {
-            if (bt.hasModifier("model.goods.crosses")) {
+            if (bt.hasModifier(CROSSES)) {
                 AbstractGoods ag = new AbstractGoods(crossesType, a);
                 a++;
                 ProductionType pt = new ProductionType(ag, true, null);
                 bt.addProductionType(pt);
-                bt.removeModifiers("model.goods.crosses");
+                bt.removeModifiers(CROSSES);
                 logger.info("Added backward compatibility production " + pt
                     + " to " + bt);
             }
@@ -2177,7 +2177,7 @@ public final class Specification {
                 for (Scope scope : ability.getScopes()) {
                     String type = scope.getType();
                     if ("model.equipment.muskets".equals(type)) {
-                        scope.setType("model.role.soldier");
+                        scope.setType(SOLDIER);
                     }
                 }
             }
@@ -2258,11 +2258,22 @@ public final class Specification {
      *
      * @return True if an option was missing and added.
      */
+    public static final String A = ".artillery";
+    public static final String D = ".dragoons";
+    public static final String MOW = ".menOfWar";
+    public static final String REG = ".regulars";
+    public static final String BELLS = "model.goods.bells";
+    public static final String CROSSES = "model.goods.crosses";
+    public static final String OPTION = "model.option.";
+    public static final String DRAGOON = "model.role.dragoon";
+    public static final String SOLDIER = "model.role.soldier";
+    public static final String ART = "model.unit.artillery";
+    public static final String MMOW = "model.unit.manOWar";
+    public static final String VS = "model.unit.veteranSoldier";
     private boolean fixDifficultyOptions() {
         boolean ret = false;
         String id;
-        AbstractOption op;
-        OptionGroup og;
+        
         UnitListOption ulo;
 
         // SAVEGAME_VERSION == 11
@@ -2277,7 +2288,7 @@ public final class Specification {
             GameOptions.CROSSES_INCREMENT,
             GameOptions.RECRUIT_PRICE_INCREASE,
             GameOptions.LOWER_CAP_INCREASE,
-            GameOptions.PRICE_INCREASE + ".artillery",
+            GameOptions.PRICE_INCREASE + A,
             GameOptions.PRICE_INCREASE_PER_TYPE,
             GameOptions.EXPERT_STARTING_UNITS,
             GameOptions.IMMIGRANTS);
@@ -2334,23 +2345,23 @@ public final class Specification {
         ulo = checkDifficultyUnitListOption(id, GameOptions.DIFFICULTY_MONARCH);
         if (ulo != null) {
             AbstractUnitOption regulars
-                = new AbstractUnitOption(id + ".regulars", this);
+                = new AbstractUnitOption(id + REG, this);
             regulars.setValue(new AbstractUnit("model.unit.kingsRegular",
                                                "model.role.infantry", 31));
             ulo.getValue().add(regulars);
             AbstractUnitOption dragoons
-                = new AbstractUnitOption(id + ".dragoons", this);
+                = new AbstractUnitOption(id + D, this);
             dragoons.setValue(new AbstractUnit("model.unit.kingsRegular",
                                                "model.role.cavalry", 15));
             ulo.getValue().add(dragoons);
             AbstractUnitOption artillery
-                = new AbstractUnitOption(id + ".artillery", this);
-            artillery.setValue(new AbstractUnit("model.unit.artillery",
+                = new AbstractUnitOption(id + A, this);
+            artillery.setValue(new AbstractUnit(ART,
                                                 DEFAULT_ROLE_ID, 14));
             ulo.getValue().add(artillery);
             AbstractUnitOption menOfWar
-                = new AbstractUnitOption(id + ".menOfWar", this);
-            menOfWar.setValue(new AbstractUnit("model.unit.manOWar",
+                = new AbstractUnitOption(id + MOW, this);
+            menOfWar.setValue(new AbstractUnit(MMOW,
                                                DEFAULT_ROLE_ID, 8));
             ulo.getValue().add(menOfWar);
             ret = true;
@@ -2378,23 +2389,23 @@ public final class Specification {
         ulo = checkDifficultyUnitListOption(id, GameOptions.DIFFICULTY_MONARCH);
         if (ulo != null) {
             AbstractUnitOption regulars
-                = new AbstractUnitOption(id + ".regulars", this);
+                = new AbstractUnitOption(id + REG, this);
             regulars.setValue(new AbstractUnit("model.unit.colonialRegular",
-                                               "model.role.soldier", 2));
+                                               SOLDIER, 2));
             ulo.getValue().add(regulars);
             AbstractUnitOption dragoons
-                = new AbstractUnitOption(id + ".dragoons", this);
+                = new AbstractUnitOption(id + D, this);
             dragoons.setValue(new AbstractUnit("model.unit.colonialRegular",
-                                               "model.role.dragoon", 2));
+                                               DRAGOON, 2));
             ulo.getValue().add(dragoons);
             AbstractUnitOption artillery
-                = new AbstractUnitOption(id + ".artillery", this);
-            artillery.setValue(new AbstractUnit("model.unit.artillery",
+                = new AbstractUnitOption(id + A, this);
+            artillery.setValue(new AbstractUnit(ART,
                                                 DEFAULT_ROLE_ID, 2));
             ulo.getValue().add(artillery);
             AbstractUnitOption menOfWar
-                = new AbstractUnitOption(id + ".menOfWar", this);
-            menOfWar.setValue(new AbstractUnit("model.unit.manOWar",
+                = new AbstractUnitOption(id + MOW, this);
+            menOfWar.setValue(new AbstractUnit(MMOW,
                                                DEFAULT_ROLE_ID, 2));
             ulo.getValue().add(menOfWar);
             ret = true;
@@ -2403,23 +2414,23 @@ public final class Specification {
         ulo = checkDifficultyUnitListOption(id, GameOptions.DIFFICULTY_MONARCH);
         if (ulo != null) {
             AbstractUnitOption regulars
-                = new AbstractUnitOption(id + ".regulars", this);
-            regulars.setValue(new AbstractUnit("model.unit.veteranSoldier",
-                                               "model.role.soldier", 2));
+                = new AbstractUnitOption(id + REG, this);
+            regulars.setValue(new AbstractUnit(VS,
+                                               SOLDIER, 2));
             ulo.getValue().add(regulars);
             AbstractUnitOption dragoons
-                = new AbstractUnitOption(id + ".dragoons", this);
-            dragoons.setValue(new AbstractUnit("model.unit.veteranSoldier",
-                                               "model.role.dragoon", 2));
+                = new AbstractUnitOption(id + D, this);
+            dragoons.setValue(new AbstractUnit(VS,
+                                               DRAGOON, 2));
             ulo.getValue().add(dragoons);
             AbstractUnitOption artillery
-                = new AbstractUnitOption(id + ".artillery", this);
-            artillery.setValue(new AbstractUnit("model.unit.artillery",
+                = new AbstractUnitOption(id + A, this);
+            artillery.setValue(new AbstractUnit(ART,
                                                 DEFAULT_ROLE_ID, 2));
             ulo.getValue().add(artillery);
             AbstractUnitOption menOfWar
-                = new AbstractUnitOption(id + ".menOfWar", this);
-            menOfWar.setValue(new AbstractUnit("model.unit.manOWar",
+                = new AbstractUnitOption(id + MOW, this);
+            menOfWar.setValue(new AbstractUnit(MMOW,
                                                DEFAULT_ROLE_ID, 2));
             ulo.getValue().add(menOfWar);
             ret = true;
@@ -2472,8 +2483,8 @@ public final class Specification {
         ulo = checkDifficultyUnitListOption(id, GameOptions.DIFFICULTY_MONARCH);
         if (ulo != null) {
             AbstractUnitOption support = new AbstractUnitOption(id, this);
-            support.setValue(new AbstractUnit("model.unit.veteranSoldier",
-                                              "model.role.soldier", 4));
+            support.setValue(new AbstractUnit(VS,
+                                              SOLDIER, 4));
             ulo.getValue().add(support);
             ret = true;
         }
@@ -2499,8 +2510,8 @@ public final class Specification {
                 og.setGroup(level.getId());
                 ret = true;
             }
-            for (String id : ids) {
-                op = level.remove(id);
+            for (String iden : ids) {
+                op = level.remove(iden);
                 if (op != null) {
                     if (op instanceof AbstractOption) {
                         ((AbstractOption)op).setGroup(og.getId());
@@ -2867,7 +2878,7 @@ public final class Specification {
             // are referred to directly, and better still is completely
             // replaced by roles in 0.11.x.  So this is the last chance
             // to fix any role omissions.
-            if ("equipment-types".equals(childName)) fixRoles();
+            if (EQUIPMENT_TYPES_TAG.equals(childName)) fixRoles();
             // end @compat 0.10.x
             ChildReader reader = readerMap.get(childName);
             if (reader == null) {
@@ -2883,7 +2894,8 @@ public final class Specification {
      *
      * @return "freecol-specification".
      */
+    public static final String FCS = "freecol-specification";
     public static String getXMLElementTagName() {
-        return "freecol-specification";
+        return FCS;
     }
 }

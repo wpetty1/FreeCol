@@ -35,7 +35,7 @@ import net.sf.freecol.common.util.RandomChoice;
  */
 public final class TileType extends FreeColGameObjectType {
 
-    public static enum RangeType { HUMIDITY, TEMPERATURE, ALTITUDE };
+    public  enum RangeType { HUMIDITY, TEMPERATURE, ALTITUDE }
 
     /**
      * Use these tile types only for "land maps", i.e. maps that only
@@ -47,8 +47,7 @@ public final class TileType extends FreeColGameObjectType {
     /** Is this a forested tile? */
     private boolean forest;
 
-    /** Is this a water tile? */
-    private boolean water;
+
 
     /** Can this tile be settled? */
     private boolean canSettle;
@@ -301,8 +300,8 @@ public final class TileType extends FreeColGameObjectType {
      */
     public List<ProductionType> getAvailableProductionTypes(boolean unattended,
                                                             String level) {
-        List<ProductionType> good = new ArrayList<>(),
-            better = new ArrayList<>();
+        List<ProductionType> good = new ArrayList<>();
+        List<ProductionType> better = new ArrayList<>();
         for (ProductionType productionType : productionTypes) {
             if (productionType.getUnattended() != unattended) continue;
             if (productionType.appliesExactly(level)) {
@@ -668,7 +667,8 @@ public final class TileType extends FreeColGameObjectType {
      *
      * @return "tile-type".
      */
+    public static final String TT = "tile-type";
     public static String getXMLElementTagName() {
-        return "tile-type";
+        return TT;
     }
 }

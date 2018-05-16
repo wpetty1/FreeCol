@@ -235,7 +235,8 @@ public class Building extends WorkLocation
         // goods and the amount actually consumed and produced, and
         // the maximum possible ratio that would apply but for
         // circumstances such as limited input availability.
-        double maximumRatio = 0.0, minimumRatio = Double.MAX_VALUE;
+        double maximumRatio = 0.0;
+        double minimumRatio = Double.MAX_VALUE;
 
         // First, calculate the nominal production ratios.
         if (canAutoProduce()) {
@@ -290,10 +291,7 @@ public class Building extends WorkLocation
             if (available < required
                 && hasAbility(Ability.EXPERTS_USE_CONNECTIONS)
                 && spec.getBoolean(GameOptions.EXPERTS_HAVE_CONNECTIONS)) {
-                long minimumGoodsInput = 4 // FIXME: magic number
-                    * (int)getUnitList().stream()
-                        .filter(u -> u.getType() == getExpertUnitType())
-                        .count();
+                long minimumGoodsInput = 4 * getUnitList().stream().filter(u -> u.getType() == getExpertUnitType()).count();
                 if (minimumGoodsInput > available) {
                     available = minimumGoodsInput;
                 }
@@ -301,7 +299,7 @@ public class Building extends WorkLocation
             // Scale production by limitations on availability.
             if (available < required) {
                 minimumRatio *= (double)available / required;
-                //maximumRatio = Math.max(maximumRatio, minimumRatio);
+   
             }
         }
 
@@ -666,7 +664,8 @@ public class Building extends WorkLocation
      *
      * @return "building".
      */
+    public static final String BUILD = "building";
     public static String getXMLElementTagName() {
-        return "building";
+        return BUILD;
     }
 }

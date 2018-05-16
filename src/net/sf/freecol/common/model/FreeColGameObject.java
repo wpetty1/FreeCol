@@ -197,17 +197,17 @@ public abstract class FreeColGameObject extends FreeColObject {
      * @return The "clone" of the <code>FreeColGameObject</code>.
      */
     public <T extends FreeColGameObject> T cloneFreeColGameObject(Class<T> returnClass) {
-        final Game game = getGame();
+        final Game gam = getGame();
         try {
             String xml = this.serialize();
 
             Field nextId = Game.class.getDeclaredField("nextId");
             nextId.setAccessible(true);
-            int id = nextId.getInt(game);
-            nextId.setInt(game, id + 1);
+            int id = nextId.getInt(gam);
+            nextId.setInt(gam, id + 1);
             xml = xml.replace(getId(), T.getXMLElementTagName() + ":" + id);
 
-            return game.unserialize(xml, returnClass);
+            return gam.unserialize(xml, returnClass);
 
         } catch (Exception e) {
             logger.log(Level.WARNING, "Failed to clone " + getId(), e);
@@ -239,8 +239,9 @@ public abstract class FreeColGameObject extends FreeColObject {
      * @return Negative if there are problems remaining, zero if
      *     problems were fixed, positive if no problems found at all.
      */
-    public int checkIntegrity(boolean fix) {
-        return 1;
+    public static final int ONE = 1;
+    public int checkIntegrity() {
+        return ONE;
     }
 
 
@@ -256,7 +257,7 @@ public abstract class FreeColGameObject extends FreeColObject {
     public final void internId(final String newId) {
         if (game != null && !(this instanceof Game)) {
             if (!newId.equals(getId())) {
-                FreeColObject ret = null;
+                
                 if (getId() != null) {
                     game.removeFreeColGameObject(getId(), "override");
                 }
@@ -330,7 +331,8 @@ public abstract class FreeColGameObject extends FreeColObject {
      *
      * @return "unknown".
      */
+    public static final String UNKNOWN = "unknown";
     public static String getXMLElementTagName() {
-        return "unknown";
+        return UNKNOWN;
     }
 }

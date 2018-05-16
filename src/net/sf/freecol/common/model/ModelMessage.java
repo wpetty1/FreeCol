@@ -40,7 +40,7 @@ import org.w3c.dom.Element;
 public class ModelMessage extends StringTemplate {
 
     /** Constants describing the type of message. */
-    public static enum MessageType implements Named {
+    public  enum MessageType implements Named {
 
         DEFAULT(""),
         WARNING("model.option.guiShowWarning"),
@@ -383,7 +383,8 @@ public class ModelMessage extends StringTemplate {
             for (Object o : result) {
                 if (o instanceof String) {
                     String str = (String)o;
-                    int index, start = 0;
+                    int index;
+                    int start = 0;
                     while ((index = str.indexOf(val, start)) >= 0) {
                         if (index > start) {
                             next.add(str.substring(start, index));
@@ -572,7 +573,8 @@ public class ModelMessage extends StringTemplate {
      *
      * @return "modelMessage"
      */
+    public static final String MDMES = "modelMessage";
     public static String getXMLElementTagName() {
-        return "modelMessage";
+        return MDMES;
     }
 }

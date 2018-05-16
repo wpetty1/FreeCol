@@ -686,7 +686,8 @@ public class TileImprovement extends TileItem implements Named {
      *
      * @return "tileImprovement".
      */
+    public static final String TI = "tileImprovement";
     public static String getXMLElementTagName() {
-        return "tileImprovement";
+        return TI;
     }
 }

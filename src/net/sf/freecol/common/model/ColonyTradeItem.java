@@ -202,7 +202,8 @@ public class ColonyTradeItem extends TradeItem {
      *
      * @return "colonyTradeItem".
      */
+    public static final String TRADEITEM = "colonyTradeItem";
     public static String getXMLElementTagName() {
-        return "colonyTradeItem";
+        return TRADEITEM;
     }
 }

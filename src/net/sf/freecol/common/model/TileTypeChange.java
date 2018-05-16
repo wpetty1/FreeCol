@@ -224,7 +224,8 @@ public class TileTypeChange implements Comparable<TileTypeChange> {
      *
      * @return "change".
      */
+    public static final String C = "change";
     public static String getXMLElementTagName() {
-        return "change";
+        return C;
     }
 }

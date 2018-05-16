@@ -346,7 +346,8 @@ public class Nation extends FreeColGameObjectType {
      *
      * @return "nation".
      */
+    public static final String N = "nation";
     public static String getXMLElementTagName() {
-        return "nation";
+        return N;
     }
 }

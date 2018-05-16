@@ -224,7 +224,8 @@ public class NationSummary extends FreeColObject {
      *
      * @return "nationSummary"
      */
+    public static final String NS = "nationSummary";
     public static String getXMLElementTagName() {
-        return "nationSummary";
+        return NS;
     }
 }

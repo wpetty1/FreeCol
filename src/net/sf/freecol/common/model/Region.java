@@ -22,7 +22,7 @@ package net.sf.freecol.common.model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Logger;
+
 
 import javax.xml.stream.XMLStreamException;
 
@@ -38,22 +38,22 @@ import static net.sf.freecol.common.util.StringUtils.*;
  */
 public class Region extends FreeColGameObject implements Nameable, Named {
 
-    private static final Logger logger = Logger.getLogger(Region.class.getName());
+	public static final String PACIFIC_KEY = "model.region.pacific";
 
     /** The keys for the valid predefined regions. */
-    public static final List<String> predefinedRegionKeys
+    protected static final List<String> predefinedRegionKeys
         = makeUnmodifiableList("model.region.arctic", "model.region.antarctic",
             "model.region.northWest", "model.region.north", "model.region.northEast",
             "model.region.west", "model.region.center", "model.region.east",
             "model.region.southWest", "model.region.south", "model.region.southEast",
             "model.region.atlantic", "model.region.northAtlantic", "model.region.southAtlantic",
-            "model.region.pacific", "model.region.northPacific", "model.region.southPacific");
+            PACIFIC_KEY, "model.region.northPacific", "model.region.southPacific");
 
     /** Hardwired name key for the Pacific for the benefit of isPacific(). */
-    public static final String PACIFIC_KEY = "model.region.pacific";
+    
 
     /** The type of region. */
-    public static enum RegionType implements Named {
+    public  enum RegionType implements Named {
         OCEAN(false),
         COAST(false),
         LAKE(false),
@@ -645,7 +645,8 @@ public class Region extends FreeColGameObject implements Nameable, Named {
      *
      * @return "region".
      */
+    public static final String R = "region";
     public static String getXMLElementTagName() {
-        return "region";
+        return R;
     }
 }

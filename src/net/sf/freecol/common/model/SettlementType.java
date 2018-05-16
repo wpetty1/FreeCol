@@ -457,7 +457,8 @@ public class SettlementType extends FreeColGameObjectType {
      *
      * @return "settlementType".
      */
+    public static final String ST = "settlementType";
     public static String getXMLElementTagName() {
-        return "settlementType";
+        return ST;
     }
 }

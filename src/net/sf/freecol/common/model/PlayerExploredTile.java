@@ -263,7 +263,7 @@ public class PlayerExploredTile extends FreeColGameObject {
 
         owner = xr.makeFreeColGameObject(game, OWNER_TAG, Player.class, false);
 
-        // FIXME: makeFreeColGameObject is more logical, but will fail ATM
+        // makeFreeColGameObject is more logical, but will fail ATM
         // if the settlement has been destroyed while this pet-player can
         // not see it.  Since pets are only read in the server, there will be
         // a ServerObject for existing settlements so findFreeColGameObject
@@ -364,7 +364,8 @@ public class PlayerExploredTile extends FreeColGameObject {
      *
      * @return "playerExploredTile".
      */
+    public static final String PET = "playerExploredTile";
     public static String getXMLElementTagName() {
-        return "playerExploredTile";
+        return PET;
     }
 }

@@ -303,7 +303,7 @@ public final class Monarch extends FreeColGameObject implements Named {
     private boolean displeasure = false;
 
     /** Constants describing monarch actions. */
-    public static enum MonarchAction {
+    public enum MonarchAction {
         NO_ACTION,
         RAISE_TAX_ACT,
         RAISE_TAX_WAR,
@@ -330,19 +330,19 @@ public final class Monarch extends FreeColGameObject implements Named {
         }
 
         public String getTextKey() {
-            return "model." + getKey() + ".text";
+            return MODL + getKey() + ".text";
         }
         
         public String getYesKey() {
-            return "model." + getKey() + ".yes";
+            return MODL + getKey() + ".yes";
         }
 
         public String getNoKey() {
-            return "model." + getKey() + ".no";
+            return MODL + getKey() + ".no";
         }
 
         public String getHeaderKey() {
-            return "model." + getKey() + ".header";
+            return MODL + getKey() + ".header";
         }
     }
 
@@ -367,8 +367,10 @@ public final class Monarch extends FreeColGameObject implements Named {
     /** The land unit types suitable for support actions. */
     private List<UnitType> landTypes = null;
     /** The roles identifiers suitable for land units with support actions. */
-    private Role mountedRole = null, armedRole = null,
-        refMountedRole, refArmedRole;
+    private Role mountedRole = null; 
+    private Role armedRole = null;
+    private Role refMountedRole;
+    private Role refArmedRole;
     /** The land unit types suitable for mercenary support. */
     private List<UnitType> mercenaryTypes = null;
     /** The naval unit types suitable for the REF. */
@@ -805,6 +807,9 @@ public final class Monarch extends FreeColGameObject implements Named {
      * @param naval If the addition should be a naval unit.
      * @return An addition to the colonial forces.
      */
+    public static final String CHMOUNT = "Choose mounted";
+    public static final String CHSOL = "Choose soldier";
+    public static final String MODL = "model.";
     public List<AbstractUnit> getSupport(Random random, boolean naval) {
         initializeCaches();
 
@@ -818,9 +823,9 @@ public final class Monarch extends FreeColGameObject implements Named {
             setSupportSea(true);
             return support;
         }
-
+        
         /**
-         * FIXME: we should use a total strength value, and randomly
+         * we should use a total strength value, and randomly
          * add individual units until that limit has been
          * reached. E.g. given a value of 10, we might select two
          * units with strength 5, or three units with strength 3 (plus
@@ -833,33 +838,33 @@ public final class Monarch extends FreeColGameObject implements Named {
                         "Choose bombard", bombardTypes, random),
                         Specification.DEFAULT_ROLE_ID, 1));
             support.add(new AbstractUnit(getRandomMember(logger,
-                        "Choose mounted", landTypes, random),
+                        CHMOUNT, landTypes, random),
                         mountedRole.getId(), 2));
             break;
         case 3:
             support.add(new AbstractUnit(getRandomMember(logger,
-                        "Choose mounted", landTypes, random),
+                        CHMOUNT, landTypes, random),
                         mountedRole.getId(), 2));
             support.add(new AbstractUnit(getRandomMember(logger,
-                        "Choose soldier", landTypes, random),
+                        CHSOL, landTypes, random),
                         armedRole.getId(), 1));
             break;
         case 2:
             support.add(new AbstractUnit(getRandomMember(logger,
-                        "Choose mounted", landTypes, random),
+                        CHMOUNT, landTypes, random),
                         mountedRole.getId(), 2));
             break;
         case 1:
             support.add(new AbstractUnit(getRandomMember(logger,
-                        "Choose mounted", landTypes, random),
+                        CHMOUNT, landTypes, random),
                         mountedRole.getId(), 1));
             support.add(new AbstractUnit(getRandomMember(logger,
-                        "Choose soldier", landTypes, random),
+                        CHSOL, landTypes, random),
                         armedRole.getId(), 1));
             break;
         case 0:
             support.add(new AbstractUnit(getRandomMember(logger,
-                        "Choose soldier", landTypes, random),
+                        CHSOL, landTypes, random),
                         armedRole.getId(), 1));
             break;
         default:
@@ -881,7 +886,7 @@ public final class Monarch extends FreeColGameObject implements Named {
         final double enemyStrength = enemy.calculateStrength(false);
         final double strengthRatio
             = Player.strengthRatio(baseStrength, enemyStrength);
-        List<AbstractUnit> result = new ArrayList<AbstractUnit>();
+        List<AbstractUnit> result = new ArrayList<>();
         // We do not really know what Col1 did to decide whether to
         // provide war support, so we have made something up.
         //
@@ -899,7 +904,10 @@ public final class Monarch extends FreeColGameObject implements Named {
             || (p > 0.0 && p > randomDouble(logger, "War support?", random))) {
             Force wsf = getWarSupportForce();
             result.addAll(wsf.getUnits());
-            double supportStrength, fullRatio, strength, ratio;
+            double supportStrength;
+            double fullRatio;
+            double strength;
+            double ratio;
             supportStrength = wsf.calculateStrength(false);
             fullRatio = Player.strengthRatio(baseStrength + supportStrength,
                                              enemyStrength);
@@ -1052,7 +1060,7 @@ public final class Monarch extends FreeColGameObject implements Named {
     private static final String PLAYER_TAG = "player";
     private static final String SUPPORT_SEA_TAG = "supportSea";
     // @compat 0.11.1
-    private static final String NAME_TAG = "name";
+ 
     // end @compat 0.11.1
     // @compat 0.11.5
     private static final String MERCENARY_FORCE_TAG = "mercenaryForce";
@@ -1175,7 +1183,8 @@ public final class Monarch extends FreeColGameObject implements Named {
      *
      * @return "monarch".
      */
+    public static final String MCH = "monarch";
     public static String getXMLElementTagName() {
-        return "monarch";
+        return MCH;
     }
 }

@@ -57,7 +57,7 @@ public class Role extends BuildableType {
         public Role getCapture(Specification spec) {
             return spec.getRole(capture);
         }
-    };
+    }
 
     /**
      * A comparator to order roles by descending total military
@@ -341,7 +341,7 @@ public class Role extends BuildableType {
         List<AbstractGoods> result = new ArrayList<>();
         if (from != to && !(from == null && to.isDefaultRole())) {
             List<AbstractGoods> fromGoods = (from == null)
-                ? new ArrayList<AbstractGoods>()
+                ? new ArrayList<>()
                 : from.getRequiredGoods(fromCount);
             List<AbstractGoods> toGoods = to.getRequiredGoods(toCount);
             for (AbstractGoods ag : toGoods) {
@@ -545,7 +545,8 @@ public class Role extends BuildableType {
      *
      * @return "role"
      */
+    public static final String R = "role";
     public static String getXMLElementTagName() {
-        return "role";
+        return R;
     }
 }

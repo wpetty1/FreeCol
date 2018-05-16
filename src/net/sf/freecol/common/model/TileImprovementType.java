@@ -635,7 +635,8 @@ public final class TileImprovementType extends FreeColGameObjectType {
      *
      * @return "tile-improvement-type".
      */
+    public static final String TIMT = "tile-improvement-type";
     public static String getXMLElementTagName() {
-        return "tile-improvement-type";
+        return TIMT;
     }
 }

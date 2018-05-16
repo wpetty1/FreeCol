@@ -24,7 +24,7 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
+
 
 import javax.xml.stream.XMLStreamException;
 
@@ -41,7 +41,7 @@ import org.w3c.dom.Element;
  */
 public final class Market extends FreeColGameObject implements Ownable {
 
-    private static final Logger logger = Logger.getLogger(Market.class.getName());
+    
 
     /**
      * European markets are bottomless.  Goods present never decrease
@@ -53,7 +53,7 @@ public final class Market extends FreeColGameObject implements Ownable {
      * Constant for specifying the access to this <code>Market</code>
      * when selling goods.
      */
-    public static enum Access {
+    public  enum Access {
         EUROPE,
         CUSTOM_HOUSE,
     }
@@ -583,7 +583,8 @@ public final class Market extends FreeColGameObject implements Ownable {
      *
      * @return "market".
      */
+    public static final String MK = "market";
     public static String getXMLElementTagName() {
-        return "market";
+        return MK;
     }
 }

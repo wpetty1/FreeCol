@@ -139,6 +139,7 @@ public class SimpleCombatModel extends CombatModel {
      * @param lb An optional <code>LogBuilder</code> to log to.
      * @return The offensive power.
      */
+    public static final String BC = "Bogus combat";
     private double getOffencePower(FreeColGameObject attacker,
                                    FreeColGameObject defender,
                                    LogBuilder lb) {
@@ -168,7 +169,7 @@ public class SimpleCombatModel extends CombatModel {
             if (lb != null) lb.add(" bombard=", result);
 
         } else {
-            throw new IllegalArgumentException("Bogus combat");
+            throw new IllegalArgumentException(BC);
         }
         return result;
     }
@@ -211,7 +212,7 @@ public class SimpleCombatModel extends CombatModel {
             }
 
         } else {
-            throw new IllegalArgumentException("Bogus combat");
+            throw new IllegalArgumentException(BC);
         }
         return result;
     }
@@ -227,7 +228,7 @@ public class SimpleCombatModel extends CombatModel {
     public Set<Modifier> getOffensiveModifiers(FreeColGameObject attacker,
                                                FreeColGameObject defender) {
         Set<Modifier> result = new HashSet<>();
-        Modifier m;
+        
         if (attacker == null) {
             throw new IllegalStateException("Null attacker");
         } else if (combatIsAttackMeasurement(attacker, defender)
@@ -267,10 +268,10 @@ public class SimpleCombatModel extends CombatModel {
             }
 
         } else if (combatIsBombard(attacker, defender)) {
-            ; // Bombard strength handled by getOffensePower
+             // Bombard strength handled by getOffensePower
 
         } else {
-            throw new IllegalArgumentException("Bogus combat");
+            throw new IllegalArgumentException(BC);
         }
 
         // @compat 0.11.0
@@ -361,7 +362,7 @@ public class SimpleCombatModel extends CombatModel {
         }
 
         if (combatIsAttackMeasurement(attacker, defender)) {
-            ; // No defender information available
+             // No defender information available
 
         } else if (combatIsSettlementAttack(attacker, defender)) {
             // Settlement present, apply bombardment bonus
@@ -409,7 +410,7 @@ public class SimpleCombatModel extends CombatModel {
                 result.addAll(spec.getModifiers(Modifier.ARTILLERY_IN_THE_OPEN));
             }
         } else {
-            throw new IllegalStateException("Bogus combat");
+            throw new IllegalStateException(BC);
         }
     }
 
@@ -466,7 +467,7 @@ public class SimpleCombatModel extends CombatModel {
             result.add(UNKNOWN_DEFENCE_MODIFIER);
 
         } else {
-            throw new IllegalArgumentException("Bogus combat");
+            throw new IllegalArgumentException(BC);
         }
 
         // @compat 0.11.0
@@ -643,7 +644,7 @@ public class SimpleCombatModel extends CombatModel {
             Unit defenderUnit = (Unit) defender;
             if (!defenderUnit.isNaval()) {
                 // One day we might want:
-                //   crs.add(CombatResult.SLAUGHTER_UNIT_BOMBARD);
+
                 throw new IllegalStateException("Bombard of non-naval");
             }
             action = "Bombard";
@@ -676,7 +677,7 @@ public class SimpleCombatModel extends CombatModel {
             }
 
         } else {
-            throw new IllegalStateException("Bogus combat");
+            throw new IllegalStateException(BC);
         }
 
         // Log the results so that we have a solid record of combat

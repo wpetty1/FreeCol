@@ -109,10 +109,10 @@ public class GoldTradeItem extends TradeItem {
      * {@inheritDoc}
      */
     public int evaluateFor(Player player) {
-        int gold = getGold();
+        int gl = getGold();
         return (!isValid()) ? Integer.MIN_VALUE
-            : (getSource() == player) ? -gold
-            : gold;
+            : (getSource() == player) ? -gl
+            : gl;
     }
 
 
@@ -186,7 +186,8 @@ public class GoldTradeItem extends TradeItem {
      *
      * @return "goldTradeItem".
      */
+    public static final String GLITEM = "goldTradeItem";
     public static String getXMLElementTagName() {
-        return "goldTradeItem";
+        return GLITEM;
     }
 }

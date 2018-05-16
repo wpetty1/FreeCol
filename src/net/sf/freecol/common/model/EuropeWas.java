@@ -19,7 +19,7 @@
 
 package net.sf.freecol.common.model;
 
-import java.util.logging.Logger;
+
 
 
 /**
@@ -28,7 +28,7 @@ import java.util.logging.Logger;
  */
 public class EuropeWas {
 
-    private static final Logger logger = Logger.getLogger(EuropeWas.class.getName());
+    
 
     private final Europe europe;
     private final int unitCount;

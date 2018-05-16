@@ -57,11 +57,11 @@ public class Game extends FreeColGameObject {
     private static final Logger logger = Logger.getLogger(Game.class.getName());
 
     /** State for the FCGO iterator, out here because it has to be static. */
-    private static enum FcgoState {
+    private enum FcgoState {
         INVALID,
         VALID,
         CONSUMED,
-    };
+    }
 
     /** Map of all classes with corresponding server classes. */
     private static final java.util.Map<Class<? extends FreeColObject>,
@@ -86,7 +86,7 @@ public class Game extends FreeColGameObject {
                           net.sf.freecol.server.model.ServerPlayer.class);
         serverClasses.put(net.sf.freecol.common.model.Unit.class,
                           net.sf.freecol.server.model.ServerUnit.class);
-    };
+    }
 
     /**
      * Map of class name to class for the location classes, to speed
@@ -113,7 +113,7 @@ public class Game extends FreeColGameObject {
                             net.sf.freecol.common.model.Tile.class);
         locationClasses.put("Unit",
                             net.sf.freecol.common.model.Unit.class);
-    };
+    }
 
 
     /**
@@ -371,9 +371,9 @@ public class Game extends FreeColGameObject {
 
         // Garbage collect the FCGOs if enough have been removed.
         if (++removeCount > REMOVE_GC_THRESHOLD) {
-            for (FreeColGameObject fcgo : getFreeColGameObjects());
+            for (FreeColGameObject fcgo : getFreeColGameObjects())
             removeCount = 0;
-            System.gc(); // Probably a good opportunity.
+           
         }
     }
 
@@ -1017,7 +1017,7 @@ public class Game extends FreeColGameObject {
         java.util.Map<String, String> stats = new HashMap<>();
 
         // Memory
-        System.gc();
+       
         long free = Runtime.getRuntime().freeMemory()/(1024*1024);
         long total = Runtime.getRuntime().totalMemory()/(1024*1024);
         long max = Runtime.getRuntime().maxMemory()/(1024*1024);
@@ -1152,8 +1152,8 @@ public class Game extends FreeColGameObject {
             lb.log(logger, Level.WARNING);
         }
 
-        Map map = getMap();
-        if (map != null) {
+        Map mp = getMap();
+        if (mp != null) {
             result = Math.min(result, getMap().checkIntegrity(fix));
         }
         for (Player player : getPlayers()) {
@@ -1243,10 +1243,10 @@ public class Game extends FreeColGameObject {
 
         nationOptions.toXML(xw);
 
-        List<Player> players = getSortedCopy(getPlayers());
+        List<Player> plays = getSortedCopy(getPlayers());
         Player unknown = getUnknownEnemy();
-        if (unknown != null) players.add(unknown);
-        for (Player p : players) p.toXML(xw);
+        if (unknown != null) plays.add(unknown);
+        for (Player p : plays) p.toXML(xw);
 
         if (map != null) map.toXML(xw);
     }
@@ -1269,7 +1269,7 @@ public class Game extends FreeColGameObject {
                 UUID u = UUID.fromString(str);
                 this.uuid = u;
             } catch (IllegalArgumentException iae) {
-                ;// Preserve existing uuid
+                // Preserve existing uuid
             }
         }
 
@@ -1362,7 +1362,8 @@ public class Game extends FreeColGameObject {
      *
      * @return "game".
      */
+    public static final String GAM = "game";
     public static String getXMLElementTagName() {
-        return "game";
+        return GAM;
     }
 }

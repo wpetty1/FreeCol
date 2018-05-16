@@ -54,7 +54,7 @@ public class StringTemplate extends FreeColObject {
      * value of the key, or LABEL, a separator string that will be
      * used to join the replacement values.
      */
-    public static enum TemplateType { NAME, KEY, TEMPLATE, LABEL }
+    public  enum TemplateType { NAME, KEY, TEMPLATE, LABEL }
 
     /** The TemplateType of this StringTemplate. Defaults to KEY. */
     private TemplateType templateType = TemplateType.KEY;
@@ -247,10 +247,11 @@ public class StringTemplate extends FreeColObject {
      * @param value The corresponding replacement.
      * @return This <code>StringTemplate</code>.
      */
+    public static final String TEMP = " to StringTemplate.";
     public StringTemplate add(String key, String value) {
         if (this.templateType != TemplateType.TEMPLATE) {
             throw new IllegalArgumentException("Cannot add key-value pair"
-                + " to StringTemplate." + this.templateType);
+                + TEMP + this.templateType);
         }
         addKey(key);
         addReplacement(this.key(value));
@@ -268,7 +269,7 @@ public class StringTemplate extends FreeColObject {
     public StringTemplate add(String value) {
         if (this.templateType != TemplateType.LABEL) {
             throw new IllegalArgumentException("Cannot add a single string"
-                + " to StringTemplate." + this.templateType);
+                + TEMP + this.templateType);
         }
         addReplacement(this.key(value));
         return this;
@@ -286,7 +287,7 @@ public class StringTemplate extends FreeColObject {
     public StringTemplate addName(String key, String value) {
         if (this.templateType != TemplateType.TEMPLATE) {
             throw new IllegalArgumentException("Cannot add key-name pair"
-                + " to StringTemplate." + this.templateType);
+                + TEMP + this.templateType);
         }
         addKey(key);
         addReplacement(this.name(value));
@@ -305,7 +306,7 @@ public class StringTemplate extends FreeColObject {
     public StringTemplate addName(String key, FreeColObject object) {
         if (this.templateType != TemplateType.TEMPLATE) {
             throw new IllegalArgumentException("Cannot add key-object pair"
-                + " to StringTemplate." + this.templateType);
+                + TEMP + this.templateType);
         }
         addKey(key);
         addReplacement(this.key(Messages.nameKey(object.getId())));
@@ -323,7 +324,7 @@ public class StringTemplate extends FreeColObject {
     public StringTemplate addName(String value) {
         if (this.templateType != TemplateType.LABEL) {
             throw new IllegalArgumentException("Cannot add a single string"
-                + " to StringTemplate." + this.templateType);
+                + TEMP + this.templateType);
         }
         addReplacement(this.name(value));
         return this;
@@ -374,7 +375,7 @@ public class StringTemplate extends FreeColObject {
                                             StringTemplate template) {
         if (this.templateType != TemplateType.TEMPLATE) {
             throw new IllegalArgumentException("Cannot add key-template pair"
-                + " to StringTemplate." + this.templateType);
+                + TEMP + this.templateType);
         }
         addKey(key);
         addReplacement(template);
@@ -392,7 +393,7 @@ public class StringTemplate extends FreeColObject {
     public StringTemplate addStringTemplate(StringTemplate template) {
         if (this.templateType != TemplateType.LABEL) {
             throw new IllegalArgumentException("Cannot add a template"
-                + " to StringTemplate." + this.templateType);
+                + TEMP + this.templateType);
         }
         addReplacement(template);
         return this;
@@ -617,7 +618,8 @@ public class StringTemplate extends FreeColObject {
      *
      * @return "stringTemplate".
      */
+    public static final String ST = "stringTemplate";
     public static String getXMLElementTagName() {
-        return "stringTemplate";
+        return ST;
     }
 }

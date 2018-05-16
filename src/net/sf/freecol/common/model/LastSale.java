@@ -188,7 +188,8 @@ public final class LastSale extends FreeColObject {
      *
      * @return "lastSale"
      */
+    public static final String LSALE = "lastSale";
     public static String getXMLElementTagName() {
-        return "lastSale";
+        return LSALE;
     }
 }

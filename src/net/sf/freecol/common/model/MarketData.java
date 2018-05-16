@@ -370,7 +370,8 @@ public class MarketData extends FreeColGameObject {
             newPrice = newSalePrice + diff;
         }
 
-        int oldCostToBuy = costToBuy, oldPaidForSale = paidForSale;
+        int oldCostToBuy = costToBuy;
+        int oldPaidForSale = paidForSale;
         costToBuy = newPrice;
         paidForSale = newSalePrice;
         if (costToBuy != oldCostToBuy) {
@@ -489,7 +490,8 @@ public class MarketData extends FreeColGameObject {
      *
      * @return "marketData"
      */
+    public static final String MKDATA = "marketData";
     public static String getXMLElementTagName() {
-        return "marketData";
+        return MKDATA;
     }
 }

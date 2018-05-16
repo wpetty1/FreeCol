@@ -243,7 +243,8 @@ public class HighSeas extends UnitLocation {
      *
      * @return "highSeas"
      */
+    public static final String HIGHS = "highSeas";
     public static String getXMLElementTagName() {
-        return "highSeas";
+        return HIGHS;
     }
 }

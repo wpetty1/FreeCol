@@ -569,7 +569,10 @@ public final class Ability extends Feature {
      *
      * @return "ability".
      */
+    //defined ability as a constant and return it
+    public static final String ABIL = "ability";
     public static String getXMLElementTagName() {
-        return "ability";
+    	
+        return ABIL;
     }
 }

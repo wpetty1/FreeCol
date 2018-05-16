@@ -21,7 +21,7 @@ package net.sf.freecol.common.model;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Logger;
+
 
 import javax.xml.stream.XMLStreamException;
 
@@ -46,13 +46,13 @@ import net.sf.freecol.common.util.Utils;
  */
 public class Operand extends Scope {
 
-    private static final Logger logger = Logger.getLogger(Operand.class.getName());
+ 
 
-    public static enum OperandType {
+    public  enum OperandType {
         UNITS, BUILDINGS, SETTLEMENTS, FOUNDING_FATHERS, YEAR, OPTION, NONE
     }
 
-    public static enum ScopeLevel {
+    public  enum ScopeLevel {
         SETTLEMENT, PLAYER, GAME, NONE
     }
 
@@ -389,7 +389,7 @@ public class Operand extends Scope {
     @Override
     public String toString() {
         if (value != null) return Integer.toString(value);
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         sb.append("[Operand type=").append(operandType)
             .append(" scopeLevel=").append(scopeLevel);
         return super.toString().replaceFirst("^[^ ]*", sb.toString());

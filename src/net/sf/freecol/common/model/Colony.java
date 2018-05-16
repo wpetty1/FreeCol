@@ -60,7 +60,7 @@ public class Colony extends Settlement implements Nameable, TradeLocation {
     /** The number of turns of advanced warning of starvation. */
     public static final int FAMINE_TURNS = 3;
     
-    public static enum ColonyChangeEvent {
+    public  enum ColonyChangeEvent {
         POPULATION_CHANGE,
         PRODUCTION_CHANGE,
         BONUS_CHANGE,
@@ -70,7 +70,7 @@ public class Colony extends Settlement implements Nameable, TradeLocation {
     }
 
     /** Reasons for not building a buildable. */
-    public static enum NoBuildReason {
+    public enum NoBuildReason {
         NONE,
         NOT_BUILDING,
         NOT_BUILDABLE,
@@ -842,7 +842,10 @@ public class Colony extends Settlement implements Nameable, TradeLocation {
     public int getTurnsToComplete(BuildableType buildable,
                                   AbstractGoods needed) {
         final List<AbstractGoods> required = buildable.getRequiredGoods();
-        int turns = 0, satisfied = 0, failing = 0, underway = 0;
+        int turns = 0;
+        int satisfied = 0;
+        int failing = 0;
+        int underway = 0;
         
         ProductionInfo info = productionCache.getProductionInfo(buildQueue);
         for (AbstractGoods ag : required) {
@@ -1256,7 +1259,9 @@ public class Colony extends Settlement implements Nameable, TradeLocation {
      *      the negation of the number of units to remove.
      */
     public int getPreferredSizeChange() {
-        int i, limit, pop = getUnitCount();
+        int i; 
+        int limit;
+        int pop = getUnitCount();
         if (productionBonus < 0) {
             limit = pop;
             for (i = 1; i < limit; i++) {
@@ -2074,7 +2079,7 @@ public class Colony extends Settlement implements Nameable, TradeLocation {
         public boolean isExploration() {
             return this.tileImprovementType == null;
         }
-    };
+    }
     
     /**
      * Collect suggestions for tiles that need exploration or
@@ -3030,7 +3035,8 @@ public class Colony extends Settlement implements Nameable, TradeLocation {
      *
      * @return "colony".
      */
+    public static final String COLO = "colony";
     public static String getXMLElementTagName() {
-        return "colony";
+        return COLO;
     }
 }

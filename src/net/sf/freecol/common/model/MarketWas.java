@@ -22,7 +22,7 @@ package net.sf.freecol.common.model;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
+
 
 import net.sf.freecol.common.model.AbstractGoods;
 import net.sf.freecol.common.model.GoodsType;
@@ -38,7 +38,7 @@ import net.sf.freecol.common.model.TransactionListener;
  */
 public class MarketWas {
 
-    private static final Logger logger = Logger.getLogger(MarketWas.class.getName());
+    
 
     private final Market market;
     private final int tax;

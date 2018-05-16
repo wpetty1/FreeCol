@@ -440,7 +440,7 @@ public final class GoodsType extends FreeColGameObjectType {
      *
      * Note that this does not really handle goods that are stored as
      * something else as is the case for grain etc.
-     * FIXME: fix or retire this routine?
+     
      *
      * @return The production chain of this <code>GoodsType</code> as
      *     a list.
@@ -705,7 +705,8 @@ public final class GoodsType extends FreeColGameObjectType {
      *
      * @return "goods-type".
      */
+    public static final String GOODTY = "goods-type";
     public static String getXMLElementTagName() {
-        return "goods-type";
+        return GOODTY;
     }
 }

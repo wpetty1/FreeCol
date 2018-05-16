@@ -36,7 +36,7 @@ import org.w3c.dom.Element;
  */
 public class HistoryEvent extends StringTemplate {
 
-    public static enum HistoryEventType implements Named {
+    public enum HistoryEventType implements Named {
         DISCOVER_NEW_WORLD,
         DISCOVER_REGION,
         MEET_NATION,
@@ -47,7 +47,6 @@ public class HistoryEvent extends StringTemplate {
         COLONY_DESTROYED,
         COLONY_CONQUERED,
         DESTROY_SETTLEMENT,
-        // FIXME: when exactly is a European nation destroyed?
         DESTROY_NATION,
         NATION_DESTROYED,
         FOUNDING_FATHER,
@@ -339,7 +338,8 @@ public class HistoryEvent extends StringTemplate {
      *
      * @return "historyEvent".
      */
+    public static final String HISTEVE = "historyEvent";
     public static String getXMLElementTagName() {
-        return "historyEvent";
+        return HISTEVE;
     }
 }

@@ -31,9 +31,9 @@ import net.sf.freecol.common.util.LogBuilder;
  */
 public class Occupation {
 
-    public WorkLocation workLocation;
-    public ProductionType productionType;
-    public GoodsType workType;
+    private WorkLocation workLocation;
+    private ProductionType productionType;
+    private GoodsType workType;
 
 
     /**

@@ -20,7 +20,7 @@
 package net.sf.freecol.common.model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+
 import java.util.List;
 import java.util.Random;
 import java.util.logging.Logger;
@@ -54,10 +54,10 @@ public class LandMap {
     private int numberOfLandTiles;
 
     /** Target distance from land to the map edge. */
-    private int preferredDistanceToEdge;
+    
 
     /** Minimum number of land tiles on the map. */
-    private int minimumNumberOfTiles;
+    
 
 
     /**
@@ -81,13 +81,13 @@ public class LandMap {
     public LandMap(Game game) {
         this(game.getMap().getWidth(), game.getMap().getHeight());
 
-        final Map map = game.getMap();
+        final Map mp = game.getMap();
         boolean[][] bmap = new boolean[width][height];
         int n = 0;
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                bmap[x][y] = (map.isValid(x, y))
-                    ? map.getTile(x, y).isLand()
+                bmap[x][y] = (mp.isValid(x, y))
+                    ? mp.getTile(x, y).isLand()
                     : false;
                 if (bmap[x][y]) n++;
             }
@@ -107,15 +107,15 @@ public class LandMap {
         this(mgo.getInteger(MapGeneratorOptions.MAP_WIDTH),
              mgo.getInteger(MapGeneratorOptions.MAP_HEIGHT));
 
-        int preferredDistanceToEdge
+        int preferredDistanceToEdg
             = mgo.getInteger(MapGeneratorOptions.PREFERRED_DISTANCE_TO_EDGE);
-        int minimumNumberOfTiles = mgo.getInteger(MapGeneratorOptions.LAND_MASS)
+        int minimumNumberOfTile = mgo.getInteger(MapGeneratorOptions.LAND_MASS)
             * width * height / 100;
         int gen = mgo.getInteger(MapGeneratorOptions.LAND_GENERATOR_TYPE);
         SelectOption so = (SelectOption)
             mgo.getOption(MapGeneratorOptions.LAND_GENERATOR_TYPE);
         logger.info("Using land generator " + so.getItemValues().get(gen));
-        generate(gen, preferredDistanceToEdge, minimumNumberOfTiles,
+        generate(gen, preferredDistanceToEdg, minimumNumberOfTile,
                  random);
     }
 
@@ -218,7 +218,8 @@ public class LandMap {
      */
     private void createClassicLandMap(int preferredDistanceToEdge,
                                       int minimumNumberOfTiles, Random random) {
-        int x, y;
+        int x; 
+        int y;
         while (numberOfLandTiles < minimumNumberOfTiles) {
             int failCounter = 0;
             do {
@@ -233,7 +234,6 @@ public class LandMap {
                 // find a free tile.  Decrease necessary minimum over
                 // time, so that this process will eventually succeed.
                 if (failCounter > 100) {
-                    failCounter = 0;
                     minimumNumberOfTiles--;
                     break;
                 }
@@ -439,7 +439,7 @@ public class LandMap {
         if (size >= minSize) {
             for (x = 0; x < width; x++) {
                 for (y = 0; y < height; y++) {
-                    if (newLand[x][y] == true) {
+                    if (newLand[x][y]) {
                         map[x][y] = true;
                         numberOfLandTiles++;
                     }

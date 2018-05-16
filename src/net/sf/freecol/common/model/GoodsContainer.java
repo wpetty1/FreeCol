@@ -637,7 +637,8 @@ public class GoodsContainer extends FreeColGameObject implements Ownable {
      *
      * @return "goodsContainer".
      */
+    public static final String GOODCONTAIN = "goodsContainer";
     public static String getXMLElementTagName() {
-        return "goodsContainer";
+        return GOODCONTAIN;
     }
 }

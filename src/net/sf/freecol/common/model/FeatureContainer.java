@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-import java.util.logging.Logger;
+
 
 import static net.sf.freecol.common.util.CollectionUtils.*;
 
@@ -47,7 +47,7 @@ import static net.sf.freecol.common.util.CollectionUtils.*;
  */
 public final class FeatureContainer {
 
-    private static final Logger logger = Logger.getLogger(FeatureContainer.class.getName());
+
 
     /** Lock variables. */
     private final Object abilitiesLock = new Object();
@@ -483,16 +483,16 @@ public final class FeatureContainer {
     public String toString() {
         StringBuilder sb = new StringBuilder(256);
         sb.append("[FeatureContainer");
-        Set<Ability> abilities = getAbilities(null, null, null);
-        if (!abilities.isEmpty()) {
+        Set<Ability> abil = getAbilities(null, null, null);
+        if (!abil.isEmpty()) {
             sb.append(" [abilities");
             for (Ability ability : getAbilities(null, null, null)) {
                 sb.append(" ").append(ability);
             }
             sb.append("]");
         }
-        Set<Modifier> modifiers = getModifiers(null, null, null);
-        if (!modifiers.isEmpty()) {
+        Set<Modifier> mods = getModifiers(null, null, null);
+        if (!mods.isEmpty()) {
             sb.append(" [modifiers");
             for (Modifier modifier : getModifiers(null, null, null)) {
                 sb.append(" ").append(modifier);

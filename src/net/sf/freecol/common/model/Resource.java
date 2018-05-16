@@ -163,7 +163,7 @@ public class Resource extends TileItem {
      */
     public int useQuantity(int usedQuantity) {
         if (quantity == UNLIMITED) {
-            ; // No change
+             // No change
         } else if (quantity >= usedQuantity) {
             quantity -= usedQuantity;
         } else {
@@ -327,7 +327,8 @@ public class Resource extends TileItem {
      *
      * @return "resource".
      */
+    public static final String R = "resource";
     public static String getXMLElementTagName() {
-        return "resource";
+        return R;
     }
 }

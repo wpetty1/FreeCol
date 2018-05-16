@@ -105,8 +105,8 @@ public class InciteTradeItem extends TradeItem {
      * {@inheritDoc}
      */
     public int evaluateFor(Player player) {
-        final Player victim = getVictim();
-        switch (player.getStance(victim)) {
+        final Player vic = getVictim();
+        switch (player.getStance(vic)) {
         case ALLIANCE:
             return Integer.MIN_VALUE;
         case WAR: // Not invalid, other player may not know our stance
@@ -114,8 +114,8 @@ public class InciteTradeItem extends TradeItem {
         default:
             break;
         }
-        double ratio = player.getStrengthRatio(victim, false);
-        // FIXME: magic#, needs rebalancing
+        double ratio = player.getStrengthRatio(vic, false);
+      
         int value = (int)Math.round(30 * ratio);
         return (getSource() == player) ? -value : value;
     }
@@ -193,7 +193,8 @@ public class InciteTradeItem extends TradeItem {
      *
      * @return "inciteTradeItem".
      */
+    public static final String INCITE = "inciteTradeItem";
     public static String getXMLElementTagName() {
-        return "inciteTradeItem";
+        return INCITE;
     }
 }

@@ -234,7 +234,8 @@ public class Event extends FreeColGameObjectType {
      *
      * @return "event".
      */
+    public static final String EVE = "event";
     public static String getXMLElementTagName() {
-        return "event";
+        return EVE;
     }
 }

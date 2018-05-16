@@ -19,7 +19,7 @@
 
 package net.sf.freecol.common.model;
 
-import java.util.logging.Logger;
+
 
 import javax.xml.stream.XMLStreamException;
 
@@ -39,7 +39,7 @@ import org.w3c.dom.Element;
  */
 public class Goods extends AbstractGoods implements Locatable, Ownable {
 
-    private static final Logger logger = Logger.getLogger(Goods.class.getName());
+    
 
     /** The game containing these goods. */
     private final Game game;
@@ -264,7 +264,8 @@ public class Goods extends AbstractGoods implements Locatable, Ownable {
      *
      * @return "goods".
      */
+    public static final String GOOD = "goods";
     public static String getXMLElementTagName() {
-        return "goods";
+        return GOOD;
     }
 }

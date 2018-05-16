@@ -46,17 +46,17 @@ public enum Direction implements Named {
 
     public final static int NUMBER_OF_DIRECTIONS = values().length;
 
-    public static final List<Direction> allDirections
+    protected static final List<Direction> allDirections
         = makeUnmodifiableList(Direction.N, Direction.NE,
                                Direction.E, Direction.SE,
                                Direction.S, Direction.SW,
                                Direction.W, Direction.NW);
 
-    public static final List<Direction> longSides
+    protected static final List<Direction> longSides
         = makeUnmodifiableList(Direction.NE, Direction.SE,
                                Direction.SW, Direction.NW);
 
-    public static final List<Direction> corners
+    protected static final List<Direction> corners
         = makeUnmodifiableList(Direction.N, Direction.E,
                                Direction.S, Direction.W);
     
@@ -207,7 +207,8 @@ public enum Direction implements Named {
         Direction[] ret = new Direction[NUMBER_OF_DIRECTIONS];
         ret[0] = this;
 
-        int step = 1, mask = 1;
+        int step = 1;
+        int mask = 1;
         for (int i = 1; i < NUMBER_OF_DIRECTIONS - 1; i += 2) {
             Direction dr = this.rotate(step);
             Direction dl = this.rotate(NUMBER_OF_DIRECTIONS - step);

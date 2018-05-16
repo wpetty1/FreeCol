@@ -191,7 +191,7 @@ public class GameOptions {
 
     ///** The cost of a single hammer when buying a building in a colony. */
     //Unused at the moment
-    // public static final String HAMMER_PRICE = "hammerPrice";
+
 
 
     /** Victory conditions game option group. */
@@ -509,7 +509,8 @@ public class GameOptions {
      *
      * @return "gameOptions".
      */
+    public static final String GAMEOPT = "gameOptions";
     public static String getXMLElementTagName() {
-        return "gameOptions";
+        return GAMEOPT;
     }
 }

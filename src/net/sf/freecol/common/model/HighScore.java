@@ -58,7 +58,7 @@ public class HighScore extends FreeColObject {
      * On retirement, an object will be named in honour of the
      * player.  The nature of the object depends on the player's score.
      */
-    public static enum ScoreLevel {
+    public enum ScoreLevel {
         CONTINENT(40000),
         COUNTRY(35000),
         STATE(30000),
@@ -93,8 +93,7 @@ public class HighScore extends FreeColObject {
     }
 
     /** The format to use for dates.  Almost ISO8601. */
-    private static final SimpleDateFormat dateFormat
-        = new SimpleDateFormat("yyyy-MM-dd HH:mm:ssZ");
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ssZ");
 
     /** The turn in which independence was granted. */
     private int independenceTurn = -1;
@@ -378,8 +377,7 @@ public class HighScore extends FreeColObject {
                 logger.info("Created empty high score file: " + hsf.getPath());
             } catch (IOException ioe) {
                 scores = null;
-                logger.log(Level.WARNING, "Unable to create high score file: "
-                           + hsf.getPath(), ioe);
+                logger.log(Level.WARNING, "Unable to create high score file: " + hsf.getPath(), ioe);
             }
             return scores;
         }
@@ -544,7 +542,7 @@ public class HighScore extends FreeColObject {
             try {
                 float f = xr.getAttribute(DATE_TAG, -1.0f);
                 if (f >= 0.0 && f < Long.MAX_VALUE) {
-                    date = new Date(new Float(f).longValue());
+                    date = new Date(new Float (f).longValue());
                 }
             } catch (Exception e) {
                 logger.log(Level.WARNING, "Bad float date", e);
@@ -609,7 +607,8 @@ public class HighScore extends FreeColObject {
      *
      * @return "highScore".
      */
+    public static final String HIGH = "highScore";
     public static String getXMLElementTagName() {
-        return "highScore";
+        return HIGH;
     }
 }
