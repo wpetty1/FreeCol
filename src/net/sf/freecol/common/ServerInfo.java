@@ -110,12 +110,13 @@ public class ServerInfo {
      *
      * @param element The <code>Element</code> to update from.
      */
+    public static final String SA = "slotsAvailable";
     public final void update(Element element) {
         update(element.getAttribute("name"), element.getAttribute("address"),
                Integer.parseInt(element.getAttribute("port")),
-               Integer.parseInt(element.getAttribute("slotsAvailable")),
+               Integer.parseInt(element.getAttribute(SA)),
                Integer.parseInt(element.getAttribute("currentlyPlaying")),
-               Boolean.parseBoolean(element.getAttribute("slotsAvailable")),
+               Boolean.parseBoolean(element.getAttribute(SA)),
                element.getAttribute("version"),
                Integer.parseInt(element.getAttribute("gameState")));
     }
@@ -199,7 +200,7 @@ public class ServerInfo {
         element.setAttribute("name", name);
         element.setAttribute("address", address);
         element.setAttribute("port", Integer.toString(port));
-        element.setAttribute("slotsAvailable", Integer.toString(slotsAvailable));
+        element.setAttribute(SA, Integer.toString(slotsAvailable));
         element.setAttribute("currentlyPlaying", Integer.toString(currentlyPlaying));
         element.setAttribute("isGameStarted", Boolean.toString(isGameStarted));
         element.setAttribute("version", version);
@@ -223,8 +224,9 @@ public class ServerInfo {
      * Gets the tag name of the root element representing this object.
      * @return "metaItem".
      */
+    public static final String SI = "serverInfo";
     public static String getXMLElementTagName() {
-        return "serverInfo";
+        return SI;
     }
 
 
