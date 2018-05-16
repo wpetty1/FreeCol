@@ -486,7 +486,7 @@ public class NameCache {
         final String base = getFallbackSettlementName(player);
         int i = player.getSettlements().size() + 1;
         String name = null;
-        while (game.getSettlementByName(name = base + i++) != null);
+        while (game.getSettlementByName(name = base + i++) != null)
         return name;
     }           
 
@@ -517,7 +517,7 @@ public class NameCache {
         if (player.getTradeRouteByName(base) == null) return base;
         String name;
         int i = 1;
-        while (player.getTradeRouteByName(name = base + i++) != null);
+        while (player.getTradeRouteByName(name = base + i++) != null)
         return name;
     }
 
@@ -525,7 +525,6 @@ public class NameCache {
      * Gets a new name for a unit.
      *
      * Currently only names naval units, not specific to type.
-     * FIXME: specific names for types.
      *
      * @param player The <code>Player</code> who will own the unit.
      * @param type The <code>UnitType</code> to choose a name for.
@@ -550,7 +549,7 @@ public class NameCache {
         // Get a fallback ship name
         final String base = Messages.message("nameCache.base.ship") + "-";
         int i = 1;
-        while (player.getUnitByName(name = base + i++) != null);
+        while (player.getUnitByName(name = base + i++) != null)
         return name;
     }
 }
