@@ -111,11 +111,11 @@ public class UnitTradeItem extends TradeItem {
      * {@inheritDoc}
      */
     public int evaluateFor(Player player) {
-        final Unit unit = getUnit();
+        final Unit ut = getUnit();
         return (!isValid()) ? Integer.MIN_VALUE
             : (getSource() == player)
-            ? -unit.evaluateFor(player)
-            : unit.evaluateFor(player);
+            ? -ut.evaluateFor(player)
+            : ut.evaluateFor(player);
     }
 
 
@@ -190,7 +190,8 @@ public class UnitTradeItem extends TradeItem {
      *
      * @return "unitTradeItem".
      */
+    public static final String UTI = "unitTradeItem";
     public static String getXMLElementTagName() {
-        return "unitTradeItem";
+        return UTI;
     }
 }

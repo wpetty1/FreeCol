@@ -1041,7 +1041,8 @@ public final class UnitType extends BuildableType implements Consumer {
      *
      * @return "unit-type".
      */
+    public static final String UT = "unit-type";
     public static String getXMLElementTagName() {
-        return "unit-type";
+        return UT;
     }
 }

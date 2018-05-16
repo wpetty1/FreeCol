@@ -21,7 +21,7 @@ package net.sf.freecol.common.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
+
 
 import net.sf.freecol.common.model.Colony.ColonyChangeEvent;
 import net.sf.freecol.common.util.Utils;
@@ -33,7 +33,7 @@ import net.sf.freecol.common.util.Utils;
  */
 public class UnitWas implements Comparable<UnitWas> {
 
-    private static final Logger logger = Logger.getLogger(UnitWas.class.getName());
+  
 
     private final Unit unit;
     private final UnitType type;
@@ -164,7 +164,7 @@ public class UnitWas implements Comparable<UnitWas> {
         return ret;
     }
 
-    // FIXME: fix this non-OO nastiness
+
     private String change(FreeColGameObject fcgo) {
         return (fcgo instanceof Tile) ? Tile.UNIT_CHANGE
             : (fcgo instanceof Europe) ? Europe.UNIT_CHANGE
@@ -174,7 +174,7 @@ public class UnitWas implements Comparable<UnitWas> {
             : null;
     }
 
-    // FIXME: fix this non-OO nastiness
+
     private int getAmount(Location location, GoodsType goodsType) {
         if (goodsType == null) return 0;
         if (location instanceof WorkLocation) {

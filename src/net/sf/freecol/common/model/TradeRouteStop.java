@@ -21,7 +21,7 @@ package net.sf.freecol.common.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
+
 
 import javax.xml.stream.XMLStreamException;
 
@@ -35,7 +35,7 @@ import static net.sf.freecol.common.util.CollectionUtils.*;
  */
 public class TradeRouteStop extends FreeColObject implements TradeLocation {
 
-    private static final Logger logger = Logger.getLogger(TradeRouteStop.class.getName());
+    
 
     /** The game in play. */
     private final Game game;
@@ -341,7 +341,8 @@ public class TradeRouteStop extends FreeColObject implements TradeLocation {
      * 
      * @return "tradeRouteStop".
      */
+    public static final String TRS = "tradeRouteStop";
     public static String getXMLElementTagName() {
-        return "tradeRouteStop";
+        return TRS;
     }
 }

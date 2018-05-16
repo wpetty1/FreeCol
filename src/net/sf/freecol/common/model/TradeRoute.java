@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.logging.Logger;
+
 import java.util.stream.Collectors;
 
 import javax.xml.stream.XMLStreamException;
@@ -41,7 +41,6 @@ import org.w3c.dom.Element;
 public class TradeRoute extends FreeColGameObject
     implements Nameable, Ownable {
 
-    private static final Logger logger = Logger.getLogger(TradeRoute.class.getName());
 
     /** The name of this trade route. */
     private String name;
@@ -170,7 +169,8 @@ public class TradeRoute extends FreeColGameObject
      */
     public List<TradeRouteStop> getStopSublist(TradeRouteStop start,
                                                TradeRouteStop end) {
-        int i0 = getIndex(start), in = getIndex(end);
+        int i0 = getIndex(start);
+        int in = getIndex(end);
         if (i0 < 0 || in < 0) return null;
         List<TradeRouteStop> result = new ArrayList<>();
         while (i0 != in) {
@@ -420,7 +420,8 @@ public class TradeRoute extends FreeColGameObject
      *
      * @return "tradeRoute".
      */
+    public static final String TR = "tradeRoute";
     public static String getXMLElementTagName() {
-        return "tradeRoute";
+        return TR;
     }
 }

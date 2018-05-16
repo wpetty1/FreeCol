@@ -85,7 +85,7 @@ public class Unit extends GoodsLocation
             .thenComparing(Comparator.comparing(Unit::getRole));
     
     /** A state a Unit can have. */
-    public static enum UnitState {
+    public  enum UnitState {
         ACTIVE,
         FORTIFIED,
         SENTRY,
@@ -275,7 +275,7 @@ public class Unit extends GoodsLocation
     }
 
     /** What type of unit label do we want? */
-    public static enum UnitLabelType {
+    public  enum UnitLabelType {
         PLAIN,      // Just the basics
         NATIONAL,   // Add the nation
         FULL        // Add the equipment and extras
@@ -305,36 +305,36 @@ public class Unit extends GoodsLocation
      */
     public StringTemplate getLabel(UnitLabelType ult) {
         final UnitType type = getType();
-        final Role role = getRole();
-        final Player owner = getOwner();
-        if (type == null || role == null || owner == null) {
+        final Role rol = getRole();
+        final Player own = getOwner();
+        if (type == null || rol == null || own == null) {
             return null; // Probably disposed
         }
 
         switch (ult) {
         case PLAIN:
             return Messages.getUnitLabel(getName(), type.getId(), 1, null,
-                                         role.getId(), null);
+                                         rol.getId(), null);
 
         case NATIONAL:
-            if (role.getMaximumCount() > 1) {
+            if (rol.getMaximumCount() > 1) {
                 // If the amount of equipment can vary an equipment
                 // label is required, so fall through into the FULL case.
             } else {
                 return Messages.getUnitLabel(getName(), type.getId(), 1,
-                                             owner.getNationId(), role.getId(),
+                                             own.getNationId(), rol.getId(),
                                              null);
             }
             // Fall through
 
         case FULL:
             StringTemplate extra = null;
-            if (role.isDefaultRole()) {
+            if (rol.isDefaultRole()) {
                 if (canCarryTreasure()) {
                     extra = StringTemplate.template("goldAmount")
                         .addAmount("%amount%", getTreasureAmount());
                 } else {
-                    boolean noEquipment = false;
+                   
                     // unequipped expert has no-equipment label
                     List<Role> expertRoles = type.getExpertRoles();
                     for (Role someRole : expertRoles) {
@@ -346,7 +346,7 @@ public class Unit extends GoodsLocation
                     }
                 }
             } else {
-                String equipmentKey = role.getId() + ".equipment";
+                String equipmentKey = rol.getId() + ".equipment";
                 if (Messages.containsKey(equipmentKey)) {
                     // Currently only used for missionary which does not
                     // have equipment that directly corresponds to goods.
@@ -354,7 +354,7 @@ public class Unit extends GoodsLocation
                 } else {
                     // Other roles can be characterized by their goods.
                     List<AbstractGoods> requiredGoods
-                        = role.getRequiredGoods(getRoleCount());
+                        = rol.getRequiredGoods(getRoleCount());
                     boolean first = true;
                     extra = StringTemplate.label("");
                     for (AbstractGoods ag : requiredGoods) {
@@ -364,7 +364,7 @@ public class Unit extends GoodsLocation
                 }
             }
             return Messages.getUnitLabel(getName(), type.getId(), 1,
-                                         owner.getNationId(), role.getId(),
+                                         own.getNationId(), rol.getId(),
                                          extra);
         default: // Can not happen
             break;
@@ -1557,7 +1557,7 @@ public class Unit extends GoodsLocation
     public List<TradeRouteStop> getCurrentStops() {
         if (validateCurrentStop() < 0) return null;
         List<TradeRouteStop> stops
-            = new ArrayList<TradeRouteStop>(getTradeRoute().getStops());
+            = new ArrayList<>(getTradeRoute().getStops());
         rotate(stops, currentStop);
         return stops;
     }
@@ -1709,10 +1709,10 @@ public class Unit extends GoodsLocation
         final Specification spec = getSpecification();
         for (Ability ability : autoDefence) {
             for (Scope scope : ability.getScopes()) {
-                Role role = spec.getRole(scope.getType());
-                if (role != null
-                    && settlement.containsGoods(getGoodsDifference(role, 1))) {
-                    return role;
+                Role rol = spec.getRole(scope.getType());
+                if (rol != null
+                    && settlement.containsGoods(getGoodsDifference(rol, 1))) {
+                    return rol;
                 }
             }
         }
@@ -1884,7 +1884,7 @@ public class Unit extends GoodsLocation
      *
      * @see Unit#getMoveType(Direction)
      */
-    public static enum MoveType {
+    public  enum MoveType {
         MOVE(null, true),
         MOVE_HIGH_SEAS(null, true),
         EXPLORE_LOST_CITY_RUMOUR(null, true),
@@ -2119,7 +2119,7 @@ public class Unit extends GoodsLocation
      * @param target The target <code>Tile</code> of the move.
      * @return The move type.
      */
-    private MoveType getNavalMoveType(@SuppressWarnings("unused") Tile from,
+    private MoveType getNavalMoveType(@SuppressWarnings("unused"),
                                       Tile target) {
         if (target == null) {
             return (getOwner().canMoveToEurope()) ? MoveType.MOVE_HIGH_SEAS
@@ -2164,13 +2164,13 @@ public class Unit extends GoodsLocation
     private MoveType getLandMoveType(Tile from, Tile target) {
         if (target == null) return MoveType.MOVE_ILLEGAL;
 
-        Player owner = getOwner();
+        Player own = getOwner();
         Unit defender = target.getFirstUnit();
 
         if (target.isLand()) {
             Settlement settlement = target.getSettlement();
             if (settlement == null) {
-                if (defender != null && owner != defender.getOwner()) {
+                if (defender != null && own != defender.getOwner()) {
                     if (defender.isNaval()) {
                         return MoveType.ATTACK_UNIT;
                     } else if (!isOffensiveUnit()) {
@@ -2180,14 +2180,14 @@ public class Unit extends GoodsLocation
                             ? MoveType.ATTACK_UNIT
                             : MoveType.MOVE_NO_ATTACK_MARINE;
                     }
-                } else if (target.hasLostCityRumour() && owner.isEuropean()) {
+                } else if (target.hasLostCityRumour() && own.isEuropean()) {
                     // Natives do not explore rumours, see:
                     // server/control/InGameInputHandler.java:move()
                     return MoveType.EXPLORE_LOST_CITY_RUMOUR;
                 } else {
                     return MoveType.MOVE;
                 }
-            } else if (owner == settlement.getOwner()) {
+            } else if (own == settlement.getOwner()) {
                 return MoveType.MOVE;
             } else if (isTradingUnit()) {
                 return getTradeMoveType(settlement);
@@ -2518,7 +2518,7 @@ public class Unit extends GoodsLocation
         Location ret = getTile();
         if (isOnCarrier()) {
             if (ret != null) {
-                ; // OK
+                 // OK
             } else if (carrier.getDestination() == null) {
                 ret = null;
             } else if (carrier.getDestination() instanceof Map) {
@@ -2530,7 +2530,7 @@ public class Unit extends GoodsLocation
             }
         } else if (isNaval()) {
             if (ret != null) {
-                ; // OK
+                 // OK
             } else if (getDestination() == null
                 || getDestination() instanceof Map) {
                 ret = getFullEntryLocation();
@@ -2544,9 +2544,9 @@ public class Unit extends GoodsLocation
 
         // Must be a land unit not on the map.  May have a carrier.
         // Get our nearest settlement to Europe, fallback to any other.
-        final Player owner = getOwner();
+        final Player own = getOwner();
         int bestValue = INFINITY;
-        for (Settlement s : owner.getSettlements()) {
+        for (Settlement s : own.getSettlements()) {
             if (s.getTile().isHighSeasConnected()) {
                 int value = s.getTile().getHighSeasCount();
                 if (bestValue > value) {
@@ -2559,9 +2559,9 @@ public class Unit extends GoodsLocation
 
         // Owner has no settlements.  If it is the REF, start from a
         // rebel colony.  Prefer the closest port.
-        if (owner.isREF()) {
+        if (own.isREF()) {
             bestValue = INFINITY;
-            for (Player p : owner.getRebels()) {
+            for (Player p : own.getRebels()) {
                 for (Settlement s : p.getSettlements()) {
                     if (s.getTile().isHighSeasConnected()) {
                         int value = s.getTile().getHighSeasCount();
@@ -2686,12 +2686,12 @@ public class Unit extends GoodsLocation
      */
     public PathNode findPathToNeighbour(Location start, Tile end, Unit carrier,
                                         CostDecider costDecider) {
-        final Player owner = getOwner();
+        final Player own = getOwner();
         int bestValue = INFINITY;
         PathNode best = null;
         for (Tile t : end.getSurroundingTiles(1)) {
             if (isTileAccessible(t)
-                && (t.getFirstUnit() == null || owner.owns(t.getFirstUnit()))) {
+                && (t.getFirstUnit() == null || own.owns(t.getFirstUnit()))) {
                 PathNode p = findPath(start, t, carrier, costDecider);
                 if (p != null && bestValue > p.getTotalTurns()) {
                     bestValue = p.getTotalTurns();
@@ -2888,8 +2888,10 @@ public class Unit extends GoodsLocation
         final Tile srcTile = getTile();
         final Tile dstTile = dst.getTile();
         final int dstCont = (dstTile == null) ? -1 : dstTile.getContiguity();
-        PathNode path, best = null;
-        int value, bestValue = INFINITY;
+        PathNode path; 
+        PathNode best = null;
+        int value;
+        int bestValue = INFINITY;
         int type;
 
         if (isNaval()) {
@@ -3280,7 +3282,7 @@ public class Unit extends GoodsLocation
      * @return A <code>StringTemplate</code> for the unit occupation.
      */
     public StringTemplate getOccupationLabel(Player player, boolean full) {
-        final TradeRoute tradeRoute = getTradeRoute();
+        final TradeRoute tradeRout = getTradeRoute();
         StringTemplate ret;
         if (player != null && player.owns(this)) {
             if (isDamaged()) {
@@ -3291,11 +3293,11 @@ public class Unit extends GoodsLocation
                 } else {
                     ret = StringTemplate.key("model.unit.occupation.underRepair");
                 }
-            } else if (tradeRoute != null) {
+            } else if (tradeRout != null) {
                 if (full) {
                     ret = StringTemplate.label(":")
                         .add("model.unit.occupation.inTradeRoute")
-                        .addName(tradeRoute.getName());
+                        .addName(tradeRout.getName());
                 } else {
                     ret = StringTemplate.key("model.unit.occupation.inTradeRoute");
                 }
@@ -3550,12 +3552,12 @@ public class Unit extends GoodsLocation
      */
     public Set<Modifier> getCombatModifiers(String id,
         FreeColGameObjectType fcgot, Turn turn) {
-        final Player owner = getOwner();
-        final UnitType unitType = getType();
+        final Player own = getOwner();
+        final UnitType unitTyp = getType();
         Set<Modifier> result = new HashSet<>();
 
         // UnitType modifiers always apply
-        for (Modifier m : unitType.getModifiers(id, fcgot, turn)) {
+        for (Modifier m : unitTyp.getModifiers(id, fcgot, turn)) {
             switch (m.getType()) {
             case ADDITIVE:
                 m.setModifierIndex(Modifier.UNIT_ADDITIVE_COMBAT_INDEX);
@@ -3568,7 +3570,7 @@ public class Unit extends GoodsLocation
         }
 
         // The player's modifiers may not all apply
-        for (Modifier m : owner.getModifiers(id, fcgot, turn)) {
+        for (Modifier m : own.getModifiers(id, fcgot, turn)) {
             m.setModifierIndex(Modifier.GENERAL_COMBAT_INDEX);
             result.add(m);
         }
@@ -3775,7 +3777,7 @@ public class Unit extends GoodsLocation
 
         // Move out of the old location.
         if (location == null) {
-            ; // do nothing
+             // do nothing
         } else if (!location.remove(this)) {//-vis
             // "Should not happen" (should always be able to remove)
             throw new RuntimeException("Failed to remove " + this
@@ -3905,8 +3907,8 @@ public class Unit extends GoodsLocation
      */
     @Override
     public Settlement getSettlement() {
-        Location location = getLocation();
-        return (location != null) ? location.getSettlement() : null;
+        Location loc = getLocation();
+        return (loc != null) ? loc.getSettlement() : null;
     }
 
     /**
@@ -4085,18 +4087,18 @@ public class Unit extends GoodsLocation
     @Override
     public Set<Ability> getAbilities(String id, FreeColGameObjectType fcgot,
                                      Turn turn) {
-        final Player owner = getOwner();
-        final UnitType unitType = getType();
+        final Player own = getOwner();
+        final UnitType unitTyp = getType();
         Set<Ability> result = new HashSet<>();
 
         // UnitType abilities always apply.
-        result.addAll(unitType.getAbilities(id));
+        result.addAll(unitTyp.getAbilities(id));
 
         // Roles apply with qualification.
         result.addAll(role.getAbilities(id, fcgot, turn));
 
         // The player's abilities require more qualification.
-        result.addAll(owner.getAbilities(id, fcgot, turn));
+        result.addAll(own.getAbilities(id, fcgot, turn));
 
         // Location abilities may apply.
         // FIXME: extend this to all locations?  May simplify
@@ -4104,7 +4106,7 @@ public class Unit extends GoodsLocation
         // the issue as we do not want Units aboard other Units to share
         // the abilities of the carriers.
         if (getSettlement() != null) {
-            result.addAll(getSettlement().getAbilities(id, unitType, turn));
+            result.addAll(getSettlement().getAbilities(id, unitTyp, turn));
         } else if (isInEurope()) {
             // @compat 0.10.x
             // It makes sense here to do:
@@ -4117,7 +4119,7 @@ public class Unit extends GoodsLocation
                 : (loc instanceof Unit) ? (Europe)((Unit)loc).getLocation()
                 : null;
             // end @compat 0.10.x
-            result.addAll(europe.getAbilities(id, unitType, turn));
+            result.addAll(europe.getAbilities(id, unitTyp, turn));
         }
         return result;
     }
@@ -4128,15 +4130,15 @@ public class Unit extends GoodsLocation
     @Override
     public Set<Modifier> getModifiers(String id, FreeColGameObjectType fcgot,
                                       Turn turn) {
-        final Player owner = getOwner();
-        final UnitType unitType = getType();
+        final Player own = getOwner();
+        final UnitType unitTyp = getType();
         Set<Modifier> result = new HashSet<>();
 
         // UnitType modifiers always apply
-        result.addAll(unitType.getModifiers(id, fcgot, turn));
+        result.addAll(unitTyp.getModifiers(id, fcgot, turn));
 
         // The player's modifiers may not all apply
-        result.addAll(owner.getModifiers(id, fcgot, turn));
+        result.addAll(own.getModifiers(id, fcgot, turn));
         
         // Role modifiers apply
         result.addAll(role.getModifiers(id, fcgot, turn));
@@ -4299,7 +4301,10 @@ public class Unit extends GoodsLocation
             xw.writeAttribute(VISIBLE_GOODS_COUNT_TAG, getVisibleGoodsCount());
         }
     }
-
+    public static final String C = "model.role.cavalry";
+    public static final String D = "model.role.dragoon";
+    public static final String I = "model.role.infantry";
+    public static final String S = "model.role.soldier";
     /**
      * {@inheritDoc}
      */
@@ -4317,9 +4322,9 @@ public class Unit extends GoodsLocation
                                          Player.class, (Player)null, true);
         if (xr.shouldIntern()) game.checkOwners(this, oldOwner);
 
-        UnitType oldUnitType = unitType;
+       
         unitType = xr.getType(spec, UNIT_TYPE_TAG,
-                              UnitType.class, (UnitType)null);
+                    UnitType.class, (UnitType)null);
 
         state = xr.getAttribute(STATE_TAG, UnitState.class, UnitState.ACTIVE);
 
@@ -4330,30 +4335,30 @@ public class Unit extends GoodsLocation
         if (owner.isIndian()) {
             if ("model.role.scout".equals(role.getId())) {
                 role = spec.getRole("model.role.mountedBrave");
-            } else if ("model.role.soldier".equals(role.getId())) {
+            } else if (S.equals(role.getId())) {
                 role = spec.getRole("model.role.armedBrave");
-            } else if ("model.role.dragoon".equals(role.getId())) {
+            } else if (D.equals(role.getId())) {
                 role = spec.getRole("model.role.nativeDragoon");
             }
         } else if (owner.isREF()) {
-            if ("model.role.soldier".equals(role.getId())
+            if (S.equals(role.getId())
                 && unitType.hasAbility(Ability.REF_UNIT)) {
-                role = spec.getRole("model.role.infantry");
-            } else if ("model.role.dragoon".equals(role.getId())
+                role = spec.getRole(I);
+            } else if (D.equals(role.getId())
                 && unitType.hasAbility(Ability.REF_UNIT)) {
-                role = spec.getRole("model.role.cavalry");
-            } else if ("model.role.infantry".equals(role.getId())
+                role = spec.getRole(C);
+            } else if (I.equals(role.getId())
                 && !unitType.hasAbility(Ability.REF_UNIT)) {
-                role = spec.getRole("model.role.soldier");
-            } else if ("model.role.cavalry".equals(role.getId())
+                role = spec.getRole(S);
+            } else if (C.equals(role.getId())
                 && !unitType.hasAbility(Ability.REF_UNIT)) {
-                role = spec.getRole("model.role.dragoon");
+                role = spec.getRole(D);
             }
         } else {
-            if ("model.role.infantry".equals(role.getId())) {
-                role = spec.getRole("model.role.soldier");
-            } else if ("model.role.cavalry".equals(role.getId())) {
-                role = spec.getRole("model.role.dragoon");
+            if (I.equals(role.getId())) {
+                role = spec.getRole(S);
+            } else if (C.equals(role.getId())) {
+                role = spec.getRole(D);
             }
         }            
         // end @compat 0.10.x
@@ -4436,8 +4441,9 @@ public class Unit extends GoodsLocation
         if (roleCount < 0) {
             // If roleCount was not present, set it from equipment
             final Specification spec = getSpecification();
-            Role role = spec.getDefaultRole();
-            boolean horses = false, muskets = false;
+            Role rol = spec.getDefaultRole();
+            boolean horses = false;
+            boolean muskets = false;
             int count = 1;
             for (EquipmentType type : equipment.keySet()) {
                 if ("model.equipment.horses".equals(type.getId())
@@ -4447,7 +4453,7 @@ public class Unit extends GoodsLocation
                     || "model.equipment.indian.muskets".equals(type.getId())) {
                     muskets = true;
                 } else {
-                    role = type.getRole();
+                    rol = type.getRole();
                     if ("model.equipment.tools".equals(type.getId())) {
                         count = equipment.getCount(type);
                     }
@@ -4455,30 +4461,30 @@ public class Unit extends GoodsLocation
             }
             if (horses && muskets) {
                 if (owner.isIndian()) {
-                    role = spec.getRole("model.role.nativeDragoon");
+                    rol = spec.getRole("model.role.nativeDragoon");
                 } else if (owner.isREF() && hasAbility(Ability.REF_UNIT)) {
-                    role = spec.getRole("model.role.cavalry");
+                    rol = spec.getRole(C);
                 } else {
-                    role = spec.getRole("model.role.dragoon");
+                    rol = spec.getRole(D);
                 }
             } else if (horses) {
                 if (owner.isIndian()) {
-                    role = spec.getRole("model.role.mountedBrave");
+                    rol = spec.getRole("model.role.mountedBrave");
                 } else if (owner.isREF() && hasAbility(Ability.REF_UNIT)) {
                     logger.warning("Undefined role: REF Scout");
                 } else {
-                    role = spec.getRole("model.role.scout");
+                    rol = spec.getRole("model.role.scout");
                 }
             } else if (muskets) {
                 if (owner.isIndian()) {
-                    role = spec.getRole("model.role.armedBrave");
+                    rol = spec.getRole("model.role.armedBrave");
                 } else if (owner.isREF() && hasAbility(Ability.REF_UNIT)) {
-                    role = spec.getRole("model.role.infantry");
+                    rol = spec.getRole(I);
                 } else {
-                    role = spec.getRole("model.role.soldier");
+                    rol = spec.getRole(S);
                 }
             }
-            setRoleCount(Math.min(role.getMaximumCount(), count));
+            setRoleCount(Math.min(rol.getMaximumCount(), count));
         } else {
             // If roleCount was present, we are now ignoring equipment.
             equipment.clear();
@@ -4582,7 +4588,8 @@ public class Unit extends GoodsLocation
      *
      * @return "unit"
      */
+    public static final String U = "unit";
     public static String getXMLElementTagName() {
-        return "unit";
+        return U;
     }
 }

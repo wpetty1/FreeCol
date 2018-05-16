@@ -53,7 +53,7 @@ public abstract class WorkLocation extends UnitLocation
 
     private static final Logger logger = Logger.getLogger(WorkLocation.class.getName());
 
-    public static final List<AbstractGoods> EMPTY_LIST
+    protected static final List<AbstractGoods> EMPTY_LIST
         = Collections.<AbstractGoods>emptyList();
 
     /** Container class to suggest a better use of a unit. */
@@ -105,7 +105,7 @@ public abstract class WorkLocation extends UnitLocation
             this.goodsType = goodsType;
             this.amount = amount;
         }
-    };
+    }
 
     /** The colony that contains this work location. */
     protected Colony colony;
@@ -271,7 +271,7 @@ public abstract class WorkLocation extends UnitLocation
         Occupation best = new Occupation(null, null, null);
         lb.add("\n  ");
         logFreeColObjects(types, lb);
-        int bestAmount = best.improve(unitType, this, 0, types, lb);
+        
         if (best.workType != null) {
             lb.add("\n  => ", best);
         } else {
@@ -338,7 +338,7 @@ public abstract class WorkLocation extends UnitLocation
         }
         // Do we have a chance of satisfying the inputs?
         for (AbstractGoods in : productionType.getInputs()) {
-            // TODO: should really consider in.getAmount
+            //  should really consider in.getAmount
             delta = Math.min(delta, colony.getNetProductionOf(in.getType()));
         }
         if (delta <= 0) return null;
@@ -350,7 +350,7 @@ public abstract class WorkLocation extends UnitLocation
                 || goodsType.isImmigrationType())) 
             return null;
         
-        // FIXME: OO
+       
         boolean ok = false;
         if (this instanceof ColonyTile) {
             // Assume the work is worth doing for owned or trivially
@@ -361,15 +361,15 @@ public abstract class WorkLocation extends UnitLocation
             Building bu = (Building)this;
             // Make sure the type can be added.
             if (bu.canAddType(better)) {
-                Colony colony = getColony();
+                Colony colon = getColony();
                 BuildableType bt;
                 // Assume work is worth doing if a unit is already
                 // there, or if the building has been upgraded, or if
                 // the goods are required for the current building job.
                 if (bu.getLevel() > 1 || unit != null) {
                     ok = true;
-                } else if (colony.getTotalProductionOf(goodsType) == 0
-                    && (bt = colony.getCurrentlyBuilding()) != null
+                } else if (colon.getTotalProductionOf(goodsType) == 0
+                    && (bt = colon.getCurrentlyBuilding()) != null
                     && AbstractGoods.containsType(goodsType, bt.getRequiredGoods())) {
                     ok = true;
                 }

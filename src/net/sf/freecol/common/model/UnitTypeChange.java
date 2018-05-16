@@ -37,7 +37,7 @@ import static net.sf.freecol.common.util.CollectionUtils.*;
  */
 public class UnitTypeChange extends FreeColObject {
 
-    public static enum ChangeType {
+    public enum ChangeType {
         EDUCATION,
         NATIVES,
         EXPERIENCE,
@@ -53,9 +53,9 @@ public class UnitTypeChange extends FreeColObject {
         UNDEAD
     }
 
-    public static final Map<ChangeType, String> tags
+    protected static final Map<ChangeType, String> tags
         = new EnumMap<>(ChangeType.class);
-    public static final Map<ChangeType, String> compatTags
+    protected static final Map<ChangeType, String> compatTags
         = new EnumMap<>(ChangeType.class);
     static {
         tags.put(ChangeType.EDUCATION, "learn-in-school");
@@ -369,7 +369,8 @@ public class UnitTypeChange extends FreeColObject {
      *
      * @return "upgrade".
      */
+    public static final String U = "upgrade";
     public static final String getXMLElementTagName() {
-        return "upgrade";
+        return U;
     }
 }
