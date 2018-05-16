@@ -4119,7 +4119,8 @@ public class Unit extends GoodsLocation
                 : (loc instanceof Unit) ? (Europe)((Unit)loc).getLocation()
                 : null;
             // end @compat 0.10.x
-            result.addAll(europe.getAbilities(id, unitTyp, turn));
+            if (europe != null)
+                result.addAll(europe.getAbilities(id, unitTyp, turn));
         }
         return result;
     }
