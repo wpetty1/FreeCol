@@ -117,6 +117,7 @@ public class Introspector {
      * @param argType A <code>Class</code> to find a converter for.
      * @return A conversion function, or null on error.
      */
+    public static final String VO = "valueOf";
     private Method getToStringConverter(Class<?> argType) {
         Method method;
 
@@ -129,7 +130,7 @@ public class Introspector {
             }
         } else {
             try {
-                method = String.class.getMethod("valueOf", argType);
+                method = String.class.getMethod(VO, argType);
             } catch (NoSuchMethodException | SecurityException e) {
                 throw new IllegalArgumentException("String.getMethod(valueOf("
                                                    + argType.getName() + "))", e);
@@ -152,7 +153,7 @@ public class Introspector {
 
         if (argType.isEnum()) {
             try {
-                method = Enum.class.getMethod("valueOf", Class.class, String.class);
+                method = Enum.class.getMethod(VO, Class.class, String.class);
             } catch (NoSuchMethodException | SecurityException e) {
                 throw new IllegalArgumentException("Enum.getMethod(valueOf(Class, String))", e);
             }
@@ -173,7 +174,7 @@ public class Introspector {
                 }
             }
             try {
-                method = argType.getMethod("valueOf", String.class);
+                method = argType.getMethod(VO, String.class);
             } catch (NoSuchMethodException | SecurityException e) {
                 throw new IllegalArgumentException(argType.getName()
                                                    + ".getMethod(valueOf(String))", e);

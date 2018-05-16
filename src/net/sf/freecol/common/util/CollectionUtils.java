@@ -170,7 +170,7 @@ public class CollectionUtils {
                         return index < np;
                     }
 
-                    // FIXME: see if we can do it with one array:-)
+
                     @Override
                     public List<T> next() {
                         List<T> pick = new ArrayList<>(original);
