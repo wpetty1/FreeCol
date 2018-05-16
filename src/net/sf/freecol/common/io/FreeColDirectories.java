@@ -19,8 +19,7 @@
 package net.sf.freecol.common.io;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
@@ -45,7 +44,7 @@ public class FreeColDirectories {
     private static final String CLASSIC_DIRECTORY = "classic";
 
     private static final String[] CONFIG_DIRS
-        = { "classic", "freecol" };
+        = { CLASSIC_DIRECTORY, FREECOL_DIRECTORY };
 
     private static final String DATA_DIRECTORY = "data";
 
@@ -113,7 +112,7 @@ public class FreeColDirectories {
      *
      * Can be overridden at the command line.
      *
-     * FIXME: defaults lamely to ./data.  Do something better in the
+
      * installer.
      */
     private static File dataDirectory = new File(DATA_DIRECTORY);
@@ -540,7 +539,7 @@ public class FreeColDirectories {
      * Note: the freecol data directory is set independently and earlier
      * in initialization than this routine.
      *
-     * FIXME: Should the default location of the main user and data
+
      * directories be determined by the installer?
      *
      * @return A message key to use to create a message to the user

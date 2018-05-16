@@ -60,7 +60,7 @@ public class FreeColXMLReader extends StreamReaderDelegate
 
     private static final Logger logger = Logger.getLogger(FreeColXMLReader.class.getName());
 
-    public static enum ReadScope {
+    public  enum ReadScope {
         SERVER,     // Loading the game in the server
         NORMAL,     // Normal interning read
         NOINTERN,   // Do not intern any object that are read
@@ -146,7 +146,7 @@ public class FreeColXMLReader extends StreamReaderDelegate
     public void setReadScope(ReadScope readScope) {
         this.readScope = readScope;
         this.uninterned = (shouldIntern()) ? null
-            : new HashMap<String, FreeColObject>();
+            : new HashMap<>();
     }
 
     /**

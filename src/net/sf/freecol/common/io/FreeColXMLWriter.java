@@ -71,7 +71,7 @@ public class FreeColXMLWriter implements Closeable, XMLStreamWriter {
     };
 
     /** The scope of a FreeCol object write. */
-    public static enum WriteScope {
+    public  enum WriteScope {
         CLIENT,  // Only the client-visible information
         SERVER,  // Full server-visible information
         SAVE;    // Absolutely everything needed to save the game state
@@ -375,9 +375,7 @@ public class FreeColXMLWriter implements Closeable, XMLStreamWriter {
         return writeScope.getClient();
     }
 
-    //public boolean isValid() {
-    //    return (this == WriteScope.CLIENT) == (player != null);
-    //}
+   
 
     public boolean validForSave() {
         return writeScope.validForSave();
