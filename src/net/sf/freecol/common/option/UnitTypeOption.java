@@ -41,10 +41,8 @@ public class UnitTypeOption extends AbstractOption<UnitType> {
     private static final Logger logger = Logger.getLogger(UnitTypeOption.class
             .getName());
 
-    /**
-     * FIXME: replace with Predicates.
-     */
-    public static enum TypeSelector {
+    
+    public  enum TypeSelector {
         UNITS, IMMIGRANTS, LAND_UNITS, NAVAL_UNITS
     }
 
@@ -331,7 +329,8 @@ public class UnitTypeOption extends AbstractOption<UnitType> {
      *
      * @return "unitTypeOption".
      */
+    public static final String UTO = "unitTypeOption";
     public static String getXMLElementTagName() {
-        return "unitTypeOption";
+        return UTO;
     }
 }

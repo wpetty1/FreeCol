@@ -21,7 +21,7 @@ package net.sf.freecol.common.option;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
+
 
 import javax.xml.stream.XMLStreamException;
 
@@ -38,7 +38,7 @@ import net.sf.freecol.common.option.UnitTypeOption.TypeSelector;
  */
 public class AbstractUnitOption extends AbstractOption<AbstractUnit> {
 
-    private static final Logger logger = Logger.getLogger(AbstractUnitOption.class.getName());
+
 
     private static final TypeSelector DEFAULT_SELECTOR = TypeSelector.UNITS;
 
@@ -242,7 +242,7 @@ public class AbstractUnitOption extends AbstractOption<AbstractUnit> {
      */
     @Override
     public void readChild(FreeColXMLReader xr) throws XMLStreamException {
-        final Specification spec = getSpecification();
+ 
         final String tag = xr.getLocalName();
 
         if (null != tag) switch (tag) {
@@ -286,7 +286,8 @@ public class AbstractUnitOption extends AbstractOption<AbstractUnit> {
      *
      * @return "unitOption".
      */
+    public static final String UO = "unitOption";
     public static String getXMLElementTagName() {
-        return "unitOption";
+        return UO;
     }
 }

@@ -148,7 +148,8 @@ public class FileOption extends AbstractOption<File> {
      *
      * @return "fileOption".
      */
+    public static final String FO = "fileOption";
     public static String getXMLElementTagName() {
-        return "fileOption";
+        return FO;
     }
 }

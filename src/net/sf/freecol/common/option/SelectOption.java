@@ -111,8 +111,9 @@ public class SelectOption extends IntegerOption {
      *
      * @return "selectValue".
      */
+    public static final String SV = "selectValue";
     public String getXMLItemElementTagName() {
-        return "selectValue";
+        return SV;
     }
 
     // Interface Option
@@ -120,6 +121,7 @@ public class SelectOption extends IntegerOption {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void setValue(Integer value) {
         Set<Integer> keys = getItemValues().keySet();
         if (keys.isEmpty()) return; // May not have been read yet
@@ -242,7 +244,8 @@ public class SelectOption extends IntegerOption {
      *
      * @return "selectOption".
      */
+    public static final String SO = "selectOption";
     public static String getXMLElementTagName() {
-        return "selectOption";
+        return SO;
     }
 }

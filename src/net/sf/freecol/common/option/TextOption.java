@@ -108,7 +108,7 @@ public class TextOption extends AbstractOption<String> {
 
     // Serialization
 
-    private static final String CHOICE_TAG = "choice";
+  
 
 
     /**
@@ -144,7 +144,8 @@ public class TextOption extends AbstractOption<String> {
      *
      * @return "textOption".
      */
+    public static final String TO = "textOption";
     public static String getXMLElementTagName() {
-        return "textOption";
+        return TO;
     }
 }

@@ -112,7 +112,8 @@ public class RangeOption extends SelectOption {
      *
      * @return "rangeOption".
      */
+    public static final String RO = "rangeOption";
     public static String getXMLElementTagName() {
-        return "rangeOption";
+        return RO;
     }
 }

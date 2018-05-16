@@ -239,7 +239,8 @@ public class AudioMixerOption extends AbstractOption<AudioMixerOption.MixerWrapp
      *
      * @return "audioMixerOption".
      */
+    public static final String AMO = "audioMixerOption";
     public static String getXMLElementTagName() {
-        return "audioMixerOption";
+        return AMO;
     }
 }

@@ -70,7 +70,8 @@ public class PercentageOption extends IntegerOption {
      *
      * @return "percentageOption".
      */
+    public static final String PO = "percentageOption";
     public static String getXMLElementTagName() {
-        return "percentageOption";
+        return PO;
     }
 }

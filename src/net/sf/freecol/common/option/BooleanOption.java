@@ -143,7 +143,8 @@ public class BooleanOption extends AbstractOption<Boolean> {
      *
      * @return "booleanOption".
      */
+    public static final String BO = "booleanOption";
     public static String getXMLElementTagName() {
-        return "booleanOption";
+        return BO;
     }
 }

@@ -323,7 +323,8 @@ public class LanguageOption extends AbstractOption<LanguageOption.Language> {
      *
      * @return "languageOption".
      */
+    public static final String LO = "languageOption";
     public static String getXMLElementTagName() {
-        return "languageOption";
+        return LO;
     }
 }

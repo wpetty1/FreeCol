@@ -190,7 +190,8 @@ public class ModOption extends AbstractOption<FreeColModFile> {
      *
      * @return "modOption".
      */
+    public static final String MO = "modOption";
     public static String getXMLElementTagName() {
-        return "modOption";
+        return MO;
     }
 }

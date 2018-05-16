@@ -72,7 +72,8 @@ public class UnitListOption extends ListOption<AbstractUnit> {
      *
      * @return "unitListOption".
      */
+    public static final String ULO = "unitListOption";
     public static String getXMLElementTagName() {
-        return "unitListOption";
+        return ULO;
     }
 }

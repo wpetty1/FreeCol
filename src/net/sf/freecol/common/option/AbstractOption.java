@@ -164,16 +164,14 @@ public abstract class AbstractOption<T> extends FreeColObject
      *
      * @return The value of this <code>Option</code>.
      */
-    @Override
-    public abstract T getValue();
+    
 
     /**
      * Sets the value of this option.
      *
      * @param value The new value of this <code>Option</code>.
      */
-    @Override
-    public abstract void setValue(T value);
+    
 
 
     // Serialization

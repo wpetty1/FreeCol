@@ -219,7 +219,8 @@ public class StringOption extends AbstractOption<String> {
      *
      * @return "stringOption".
      */
+    public static final String SO = "stringOption";
     public static String getXMLElementTagName() {
-        return "stringOption";
+        return SO;
     }
 }

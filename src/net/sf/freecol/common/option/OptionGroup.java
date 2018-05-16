@@ -625,7 +625,8 @@ public class OptionGroup extends AbstractOption<OptionGroup> {
      *
      * @return "optionGroup".
      */
+    public static final String OG = "optionGroup";
     public static String getXMLElementTagName() {
-        return "optionGroup";
+        return OG;
     }
 }

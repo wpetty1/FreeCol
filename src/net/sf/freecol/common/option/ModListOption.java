@@ -77,7 +77,8 @@ public class ModListOption extends ListOption<FreeColModFile> {
      *
      * @return "modListOption".
      */
+    public static final String MLO = "modListOption";
     public static String getXMLElementTagName() {
-        return "modListOption";
+        return MLO;
     }
 }
