@@ -165,7 +165,7 @@ public class FreeColDirectories {
      */
     private static File userModsDirectory = null;
 
-
+    private static final Object lock = new Object();
     /**
      * Does the OS look like Mac OS X?
      *
@@ -480,11 +480,16 @@ public class FreeColDirectories {
      * Derive the directory for the autosave files from the save directory.
      */
     private static void deriveAutosaveDirectory() {
-        if (autosaveDirectory == null && saveDirectory != null) {
-            autosaveDirectory = new File(saveDirectory, AUTOSAVE_DIRECTORY);
-            if (!insistDirectory(autosaveDirectory)) autosaveDirectory = null;
-        }
-    }
+		if (autosaveDirectory == null && saveDirectory != null) {
+			synchronized (lock) {
+				if (autosaveDirectory == null && saveDirectory != null) {
+					autosaveDirectory = new File(saveDirectory, AUTOSAVE_DIRECTORY);
+					if (!insistDirectory(autosaveDirectory))
+						autosaveDirectory = null;
+				}
+			}
+		}
+	}
         
 
     // Main initialization/bootstrap routines.
