@@ -327,7 +327,8 @@ public class DebugUtils {
                 .sorted().collect(Collectors.toList()));
         if (unitChoice == null) return;
 
-        Unit carrier = null, sCarrier = null;
+       
+        Unit sCarrier = null;
         if (!sTile.isLand() && !unitChoice.isNaval()) {
             sCarrier = find(sTile.getUnitList(), u -> u.isNaval()
                 && u.getSpaceLeft() >= unitChoice.getSpaceTaken());
@@ -560,7 +561,7 @@ public class DebugUtils {
      * Debug action to check for client-server desynchronization.
      *
      * Called from the debug menu and client controller.
-     * TODO: This is still fairly new and messy.  Defer i18n for a while.
+
      *
      * @param freeColClient The <code>FreeColClient</code> for the game.
      * @return True if desynchronization found.
@@ -615,7 +616,7 @@ public class DebugUtils {
             Settlement cSettlement = ct.getSettlement();
             if (sSettlement == null) {
                 if (cSettlement == null) {
-                    ;// OK
+                    // OK
                 } else {
                     lb.add("Settlement still present in client: ", cSettlement);
                     problemDetected = true;
@@ -625,7 +626,7 @@ public class DebugUtils {
                     lb.add("Settlement not present in client: ", sSettlement);
                     problemDetected = true;
                 } else if (sSettlement.getId().equals(cSettlement.getId())) {
-                    ;// OK
+                    // OK
                 } else {
                     lb.add("Settlements differ.\n  Server: ",
                         sSettlement.toString(), "\n  Client: ", 
@@ -677,7 +678,7 @@ public class DebugUtils {
                 .template("error.notAIColony")
                 .addName("%colony%", colony.getName()));
         } else {
-            // TODO: Missing i18n
+
             freeColClient.getGUI().showInformationMessage(aiColony.planToString());
         }
     }
@@ -799,7 +800,7 @@ public class DebugUtils {
      * Debug action to dump a players units/iterators to stderr.
      *
      * Called from the debug menu.
-     * TODO: missing i18n
+
      *
      * @param freeColClient The <code>FreeColClient</code> for the game.
      */
@@ -809,7 +810,8 @@ public class DebugUtils {
         LogBuilder lb = new LogBuilder(256);
         lb.add("\nActive units:\n");
 
-        Unit u, first = player.getNextActiveUnit();
+        Unit u;
+        Unit first = player.getNextActiveUnit();
         if (first != null) {
             lb.add(first.toString(), "\nat ", first.getLocation(), "\n");
             all.remove(first);
@@ -1074,7 +1076,7 @@ public class DebugUtils {
      * that is normally hidden.
      *
      * Called from tile popup menu.
-     * TODO: missing i18n
+
      *
      * @param freeColClient The <code>FreeColClient</code> for the game.
      * @param is The <code>IndianSettlement</code> to summarize.
