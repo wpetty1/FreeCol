@@ -240,7 +240,7 @@ public abstract class FreeColGameObject extends FreeColObject {
      *     problems were fixed, positive if no problems found at all.
      */
     public static final int ONE = 1;
-    public int checkIntegrity() {
+    public int checkIntegrity(boolean fix) {
         return ONE;
     }
 
