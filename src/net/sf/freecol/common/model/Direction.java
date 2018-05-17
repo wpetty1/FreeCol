@@ -44,19 +44,19 @@ public enum Direction implements Named {
     W  (-1,  0, -1,  0),
     NW ( 0, -1, -1, -1);
 
-    public final static int NUMBER_OF_DIRECTIONS = values().length;
+    public static final int NUMBER_OF_DIRECTIONS = values().length;
 
-    protected static final List<Direction> allDirections
+    private static final List<Direction> allDirections
         = makeUnmodifiableList(Direction.N, Direction.NE,
                                Direction.E, Direction.SE,
                                Direction.S, Direction.SW,
                                Direction.W, Direction.NW);
 
-    protected static final List<Direction> longSides
+    private static final List<Direction> longSides
         = makeUnmodifiableList(Direction.NE, Direction.SE,
                                Direction.SW, Direction.NW);
 
-    protected static final List<Direction> corners
+    private static final List<Direction> corners
         = makeUnmodifiableList(Direction.N, Direction.E,
                                Direction.S, Direction.W);
     
@@ -176,7 +176,7 @@ public enum Direction implements Named {
      */
     public static Direction[] getRandomDirections(String logMe, Logger logger,
                                                   Random random) {
-        List<Direction> directions = new ArrayList<>(allDirections);
+        List<Direction> directions = new ArrayList<>(getAlldirections());
         randomShuffle(logger, logMe, directions, random);
         return directions.toArray(new Direction[0]);
     }
@@ -251,4 +251,19 @@ public enum Direction implements Named {
     public String getNameKey() {
         return Messages.nameKey("model." + getKey());
     }
+
+
+	public static List<Direction> getAlldirections() {
+		return allDirections;
+	}
+
+
+	public static List<Direction> getCorners() {
+		return corners;
+	}
+
+
+	public static List<Direction> getLongsides() {
+		return longSides;
+	}
 }

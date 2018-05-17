@@ -145,7 +145,7 @@ public class River {
         this.random = random;
         this.riverType = map.getSpecification()
             .getTileImprovementType("model.improvement.river");
-        this.direction = getRandomMember(logger, "River", Direction.longSides,
+        this.direction = getRandomMember(logger, "River", Direction.getLongsides(),
                                          random);
         logger.fine("Starting new river flowing " + direction);
     }
@@ -230,7 +230,7 @@ public class River {
      * @return true if the given tile is next to this river.
      */
     public boolean isNextToSelf(Tile tile) {
-        return any(Direction.longSides,
+        return any(Direction.getLongsides(),
             d -> this.contains(tile.getNeighbourOrNull(d)));
     }
 
@@ -241,7 +241,7 @@ public class River {
      * @return true if the given tile is next to a river, lake or sea.
      */
     public boolean isNextToWater(Tile tile) {
-        return any(Direction.longSides,
+        return any(Direction.getLongsides(),
             d -> {
                 Tile t = tile.getNeighbourOrNull(d);
                 return t != null && (!t.isLand() || t.hasRiver());

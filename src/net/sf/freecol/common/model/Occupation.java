@@ -48,9 +48,9 @@ public class Occupation {
     public Occupation(WorkLocation workLocation,
         ProductionType productionType,
         GoodsType workType) {
-        this.workLocation = workLocation;
-        this.productionType = productionType;
-        this.workType = workType;
+        this.setWorkLocation(workLocation);
+        this.setProductionType(productionType);
+        this.setWorkType(workType);
     }
 
     /**
@@ -60,12 +60,12 @@ public class Occupation {
      * @return True if the unit is installed.
      */
     public boolean install(Unit unit) {
-        if (!unit.setLocation(workLocation)) return false;
-        if (productionType != workLocation.getProductionType()) {
-            workLocation.setProductionType(productionType);
+        if (!unit.setLocation(getWorkLocation())) return false;
+        if (getProductionType() != getWorkLocation().getProductionType()) {
+            getWorkLocation().setProductionType(getProductionType());
         }
-        if (workType != unit.getWorkType()) {
-            unit.changeWorkType(workType);
+        if (getWorkType() != unit.getWorkType()) {
+            unit.changeWorkType(getWorkType());
         }
         return true;
     }
@@ -115,9 +115,9 @@ public class Occupation {
                         "/", potential, ((bestAmount < amount) ? "!" : ""));
                     if (bestAmount < amount) {
                         bestAmount = amount;
-                        this.workLocation = wl;
-                        this.productionType = pt;
-                        this.workType = gt;
+                        this.setWorkLocation(wl);
+                        this.setProductionType(pt);
+                        this.setWorkType(gt);
                     }
                 }
             }
@@ -173,16 +173,41 @@ public class Occupation {
     }
 
 
-    /**
+    public WorkLocation getWorkLocation() {
+		return workLocation;
+	}
+
+	public void setWorkLocation(WorkLocation workLocation) {
+		this.workLocation = workLocation;
+	}
+
+	public ProductionType getProductionType() {
+		return productionType;
+	}
+
+	public void setProductionType(ProductionType productionType) {
+		this.productionType = productionType;
+	}
+
+	public GoodsType getWorkType() {
+		return workType;
+	}
+
+	public void setWorkType(GoodsType workType) {
+		this.workType = workType;
+	}
+	
+	/**
      * {@inheritDoc}
      */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(32);
-        sb.append("[Occupation ").append(workLocation);
+        sb.append("[Occupation ").append(getWorkLocation());
             //.append(" ").append(productionType)
-        if (workType != null) sb.append(" ").append(workType.getSuffix());
+        if (getWorkType() != null) sb.append(" ").append(getWorkType().getSuffix());
         sb.append("]");
         return sb.toString();
     }
+
 }

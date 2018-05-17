@@ -676,7 +676,7 @@ public class TileItemContainer extends FreeColGameObject {
      *
      * @return "tileItemContainer".
      */
-    public static final String TIC = "tileItemContainter";
+    public static final String TIC = "tileItemContainer";
     public static String getXMLElementTagName() {
         return TIC;
     }

@@ -105,7 +105,7 @@ public final class FreeColClient {
 
     /** The client options specific to this player. */
     private ClientOptions clientOptions;
-
+    private static ClientOptions staticClientOptions;
     /** A worker to perform game loading. */
     private final Worker worker;
 
@@ -229,6 +229,7 @@ public final class FreeColClient {
         actionManager.initializeActions(inGameController, connectController);
     }
 
+    
     /**
      * Starts the new <code>FreeColClient</code>, including the GUI.
      *
@@ -254,12 +255,12 @@ public final class FreeColClient {
         // resources specified in the active mods.
         this.clientOptions = loadClientOptions(savedGame);
         this.clientOptions.fixClientOptions();
-
         // Reset the mod resources as a result of the client option update.
         ResourceMapping modMappings = new ResourceMapping();
         for (FreeColModFile f : this.clientOptions.getActiveMods()) {
             modMappings.addAll(f.getResourceMapping());
         }
+        this.staticClientOptions = clientOptions;
         ResourceManager.setModMapping(modMappings);
         // Update the actions, resources may have changed.
         if (this.actionManager != null) updateActions();
@@ -541,6 +542,10 @@ public final class FreeColClient {
      */
     public ClientOptions getClientOptions() {
         return clientOptions;
+    }
+    
+    public static ClientOptions getStaticOptions(){
+    	return staticClientOptions;
     }
 
     /**

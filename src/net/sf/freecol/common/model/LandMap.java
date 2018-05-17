@@ -314,7 +314,7 @@ public class LandMap {
         numberOfLandTiles++;
 
         Position p = new Position(x, y);
-        for (Direction direction : Direction.longSides) {
+        for (Direction direction : Direction.getLongsides()) {
             Position n = new Position(p, direction);
             if (n.isValid(width, height)) {
                 ret += growLand(n.getX(), n.getY(), preferredDistanceToEdge,
@@ -400,7 +400,7 @@ public class LandMap {
         // Add all valid neighbour positions to list
         List<Position> l = new ArrayList<>();
         Position p = new Position(x, y);
-        for (Direction direction : Direction.longSides) {
+        for (Direction direction : Direction.getLongsides()) {
             Position n = new Position(p, direction);
             if (n.isValid(width, height)
                 && isSingleTile(n.getX(), n.getY())
@@ -423,7 +423,7 @@ public class LandMap {
                 newLand[p.getX()][p.getY()] = true;
                 size++;
 
-                for (Direction direction : Direction.longSides) {
+                for (Direction direction : Direction.getLongsides()) {
                     Position n = new Position(p, direction);
                     if (n.isValid(width, height)
                         && isSingleTile(n.getX(), n.getY())

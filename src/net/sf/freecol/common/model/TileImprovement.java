@@ -167,8 +167,8 @@ public class TileImprovement extends TileItem implements Named {
      * @return An array of relevant directions, or null if none.
      */
     public List<Direction> getConnectionDirections() {
-        return (isRoad()) ? Direction.allDirections
-            : (isRiver()) ? Direction.longSides
+        return (isRoad()) ? Direction.getAlldirections()
+            : (isRiver()) ? Direction.getLongsides()
             : null;
     }
 
@@ -377,7 +377,7 @@ public class TileImprovement extends TileItem implements Named {
         final Tile tile = getTile();
         int i = 0;
         String ret = "";
-        for (Direction d : Direction.longSides) {
+        for (Direction d : Direction.getLongsides()) {
             Direction dReverse = d.getReverseDirection();
             Tile t = tile.getNeighbourOrNull(d);
             TileImprovement river = (t == null) ? null : t.getRiver();

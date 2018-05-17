@@ -21,8 +21,13 @@ package net.sf.freecol.client.gui.action;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.io.File;
 
 import net.sf.freecol.client.FreeColClient;
+import net.sf.freecol.client.control.SoundController;
+import net.sf.freecol.common.resources.ResourceManager;
+import net.sf.freecol.common.sound.SoundPlayer;
+
 import static net.sf.freecol.common.util.StringUtils.*;
 
 
@@ -32,7 +37,8 @@ import static net.sf.freecol.common.util.StringUtils.*;
 public class ColopediaAction extends FreeColAction {
 
     public static final String id = "colopediaAction.";
-
+    
+    private SoundController soundController;
     // Order of elements will influence ingame order of menu items.
     public static enum PanelType {
         TERRAIN, RESOURCES, GOODS, UNITS,
@@ -77,6 +83,9 @@ public class ColopediaAction extends FreeColAction {
      */
     @Override
     public void actionPerformed(ActionEvent ae) {
+    	soundController = new SoundController(true);
         getGUI().showColopediaPanel(getId());
+        
+        soundController.playSound("sound.colopedia.model.nation.danish");
     }
 }
