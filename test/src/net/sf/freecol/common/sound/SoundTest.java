@@ -113,4 +113,21 @@ public class SoundTest extends FreeColTestCase {
         playSound("sound.event.sellCargo");
         playSound("sound.event.shipSunk");
     }
+    public void testFreeCol() {
+        try {
+            FreeColTcFile tcData = new FreeColTcFile("freecol");
+            ResourceManager.setTcMapping(tcData.getResourceMapping());
+        } catch (IOException e) {
+            fail("Could not load freecol ruleset.");
+        }
+
+        playSound("sound.intro.model.nation.danish");
+        playSound("sound.intro.model.nation.portuguese");
+        playSound("sound.intro.model.nation.russian");
+        playSound("sound.intro.model.nation.swedish");
+        playSound("sound.colopedia.model.nation.danish");
+        playSound("sound.colopedia.model.nation.portuguese");
+        playSound("sound.colopedia.model.nation.russian");
+        playSound("sound.colopedia.model.nation.swedish");
+    }
 }
