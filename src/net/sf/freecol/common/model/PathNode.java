@@ -20,6 +20,7 @@
 
 package net.sf.freecol.common.model;
 
+import net.sf.freecol.common.FreeColException;
 import net.sf.freecol.common.model.Direction;
 import net.sf.freecol.common.util.LogBuilder;
 
@@ -226,7 +227,7 @@ public class PathNode {
      */
     public PathNode getFirstNode() {
         PathNode path;
-        for (path = this; path.previous != null; path = path.previous)
+        for (path = this; path.previous != null; path = path.previous){}
         return path;
     }
 
@@ -237,7 +238,7 @@ public class PathNode {
      */
     public PathNode getLastNode() {
         PathNode path;
-        for (path = this; path.next != null; path = path.next)
+        for (path = this; path.next != null; path = path.next){}
         return path;
     }
 

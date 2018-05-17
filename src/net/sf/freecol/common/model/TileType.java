@@ -47,7 +47,8 @@ public final class TileType extends FreeColGameObjectType {
     /** Is this a forested tile? */
     private boolean forest;
 
-
+    /** Is this a water tile? */
+    private boolean water;
 
     /** Can this tile be settled? */
     private boolean canSettle;

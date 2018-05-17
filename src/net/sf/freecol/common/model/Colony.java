@@ -429,10 +429,10 @@ public class Colony extends Settlement implements Nameable, TradeLocation {
             bestAmount = best.improve(unit, wl, bestAmount, workTypes, lb);
         }
 
-        if (best.workLocation != null) {
+        if (best.getWorkLocation() != null) {
             lb.add("\n  => ", best, " = ", bestAmount);
         }
-        return (best.workLocation == null) ? null : best;
+        return (best.getWorkLocation() == null) ? null : best;
     }
 
     /**
@@ -708,7 +708,7 @@ public class Colony extends Settlement implements Nameable, TradeLocation {
         if (goodsType == null) return getWorkLocationFor(unit);
         Occupation occupation
             = getOccupationFor(unit, goodsType.getEquivalentTypes());
-        return (occupation == null) ? null : occupation.workLocation;
+        return (occupation == null) ? null : occupation.getWorkLocation();
     }
 
     /**
@@ -719,7 +719,7 @@ public class Colony extends Settlement implements Nameable, TradeLocation {
      */
     public WorkLocation getWorkLocationFor(Unit unit) {
         Occupation occupation = getOccupationFor(unit, false);
-        return (occupation == null) ? null : occupation.workLocation;
+        return (occupation == null) ? null : occupation.getWorkLocation();
     }
 
     /**
