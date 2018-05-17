@@ -104,7 +104,7 @@ public final class RoadPainter {
         int x = tile.getX();
         int y = tile.getY();
         List<Point2D.Float> points = new ArrayList<>(8);
-        List<Direction> directions = Direction.allDirections.stream()
+        List<Direction> directions = Direction.getAlldirections().stream()
             .filter((Direction direction) -> {
                     Tile borderingTile = map.getTile(direction.step(x, y));
                     TileImprovement r;
