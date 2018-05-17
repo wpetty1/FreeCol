@@ -1561,7 +1561,7 @@ public final class Specification {
      * @return The first <code>Role</code> found with the required
      *     ability, or null if none found.
      */
-    public Role getRoleWithAbility(String id) {
+    public Role getRoleWithAbility(String id, List<Role> roles) {
         return find(getRoles(), r -> r.hasAbility(id));
     }
 
